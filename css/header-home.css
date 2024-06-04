@@ -41,8 +41,13 @@ body {
 
 .header > h1
 {
-    font-size: 1.625rem;
     margin-left: 1rem;
+}
+
+.header > h1 > a
+{
+    color: var(--font-color1);
+    text-decoration: none;
 }
 
 .header_nav
