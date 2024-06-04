@@ -5,57 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Dinâmico de Trabalho com Jogos</title>
-    <link rel="stylesheet" href="stylePagina.css">
+    <link rel="stylesheet" href="stylehome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="header-home.css">
+    <link rel="stylesheet" href="footer-home.css">
 </head>
 <body>
-    
+
     <!--Header-->
-    <nav>
-        <header>
+
+        <header class="header">
             <h1><strong>A.N.G.E.E.R.S</strong></h1>
-            <ul>
-                <li><a href="login.html"><h3>Login</h3></a></li>
+            <ul class="header_nav">
+                <li><a class="header_nav_link" href="login.html"><h3>Login</h3></a></li>
                 <li class="dropdown">
-                    <a href="Servico.html"><h3>Serviços</h3></a>
+                    <a class="header_nav_link" href="Servico.html"><h3>Serviços</h3></a>
                     <div class="dropdown-menu">
-                        <a href="#">Serviços1</a>
-                        <a href="#">Serviços2</a>
-                        <a href="#">Serviços3</a>
+                        <a class="header_nav_link" href="#">Serviços1</a>
+                        <a class="header_nav_link" href="#">Serviços2</a>
+                        <a class="header_nav_link" href="#">Serviços3</a>
                     </div>
                 </li>
-                <li><a href="#final"><h3>Ajuda</h3></a></li>
-                <li><a href="#site"><h3>Sobre</h3></a></li>
+                <li><a class="header_nav_link" href="#final"><h3>Ajuda</h3></a></li>
+                <li><a class="header_nav_link" href="#site"><h3>Sobre</h3></a></li>
             </ul>
         </header>
-    </nav> 
+
 
     <!-- Fundo imagem -->
-    <div class="background-image"> 
-      <div class="content">
-    
+    <div class="container principal">
+        <div class="container_content">
 
-        <!-- Adição dos balões de conteúdo -->
-        <div class="baloes-conteudo">
-            <div class="balao">
-                <h2>Serviço Personalizado</h2>
-                <p>Oferecemos serviços personalizados para cada jogador, adaptados às suas necessidades e preferências.</p>
+            <div class="container_content_title">
+                <h1 class="title color_white">Bem-vindo ao Mundo dos Jogos</h1>
+                <p class="text color_white">Explore o universo dos jogos com A.N.G.E.E.R.S.</p>
             </div>
-            <div class="balao">
-                <h2>Treinamento e Mentoria</h2>
-                <p>Receba treinamento de profissionais experientes para melhorar suas habilidades e estratégias de jogo.</p>
+
+            <!-- Adição dos balões de conteúdo -->
+            <div class="container_content_services">
+                <div class="balao">
+                    <h2>Serviço Personalizado</h2>
+                    <p>Oferecemos serviços personalizados para cada jogador, adaptados às suas necessidades e preferências.</p>
+                </div>
+                <div class="balao">
+                    <h2>Treinamento e Mentoria</h2>
+                    <p>Receba treinamento de profissionais experientes para melhorar suas habilidades e estratégias de jogo.</p>
+                </div>
+                <div class="balao">
+                    <h2>Suporte 24/7</h2>
+                    <p>Nosso suporte está disponível 24 horas por dia, 7 dias por semana, para ajudar com qualquer dúvida ou problema.</p>
+                </div>
             </div>
-            <div class="balao">
-                <h2>Suporte 24/7</h2>
-                <p>Nosso suporte está disponível 24 horas por dia, 7 dias por semana, para ajudar com qualquer dúvida ou problema.</p>
+            <!--div class ="content"-->
+            <div class="container_content_link">
+                <a class="btn" href="#">Saiba Mais</a>
+
             </div>
-        </div>
-        <!--div class ="content"-->
-        <a href="#">Saiba Mais</a> 
-        </div>
+         </div>
     </div>
-    
-    
+
+
 
     <!-- Banner -->
     <section class="banner">
@@ -70,7 +79,7 @@
         <div class="container">
             <h2 style="color:#c8aa82;">Nossos Serviços</h2>
             <div class="servico">
-                <img src="lolservico1.png" alt="League of Legends">
+                <img  src="lolservico1.png" alt="League of Legends">
                 <h3>--LEAGUE OF LEGENDS--</h3>
                 <p>"League of Legends" é um jogo online de estratégia em equipe, no qual dois times competem para destruir a base inimiga enquanto defendem a própria. Cada jogador controla um campeão com habilidades únicas, buscando acumular ouro e experiência para ficar mais forte. O jogo é conhecido por sua vasta variedade de personagens, mapas e estratégias, além de um cenário competitivo global com campeonatos de grande prestígio. Sua popularidade é imensa, com milhões de jogadores ao redor do mundo.</p>
             </div>
@@ -85,22 +94,22 @@
 
     <!-- Estrutura e Seção de Testemunhos -->
     <section class="testemunho">
-    <section class="banner">
-            <div>
-                <h2>O que nossos clientes dizem</h2>
-                <div class="testemunho">
-                    <p>"A melhor experiência de jogo que já tive!"</p>
-                    <h3>- Cliente Satisfeito</h3>
-                </div>
-                <div class="testemunho">
-                    <p>"Incrível suporte e ótimos serviços."</p>
-                    <h3>- Jogador Contente</h3>
-                </div>
-        <div class="container">
-            <a href="Serviço/Serviço/index.html" class="btn">Contrate Agora</a>
-        </div>
+        <section class="testemunho_banner">
+                <div>
+                    <h2>O que nossos clientes dizem</h2>
+                    <div class="testemunho">
+                        <p>"A melhor experiência de jogo que já tive!"</p>
+                        <h3>- Cliente Satisfeito</h3>
+                    </div>
+                    <div class="testemunho">
+                        <p>"Incrível suporte e ótimos serviços."</p>
+                        <h3>- Jogador Contente</h3>
+                    </div>
+            <div class="container">
+                <a href="Serviço/Serviço/index.html" class="btn">Contrate Agora</a>
             </div>
-    </section>
+                </div>
+        </section>
     </section>
 
     <!-- Final da página -->
