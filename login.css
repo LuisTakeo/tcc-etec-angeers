@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 100;
+}
+
+/*fundo imagem*/
+.background-image {
+    background-image: url('lol-img.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Isso faz a imagem de fundo ficar fixa */
+    height: 100%;
+    position: relative;
+}
+
+.main-login{
+    width: 100vw;
+    height: 100vh;
+    background: #201b2c;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.left-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.left-login > h1{
+    font-size: 3vw;
+    color:#c8aa82;
+}
+
+.left-login-image{
+    width: 35vw;
+}
+
+.rigth-login{
+    width: 50vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.card-login {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 35px;
+  background: #2f2841;
+  border-radius: 20px;
+  box-shadow: 0px, 10px, 40px, #000000;
+}
+.card-login > h1{
+
+    color:#c8aa82;
+    font-weight: 800;
+    margin: 0;
+}
+
+.textfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.textfield > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: white;
+    color: black;
+    font-size: 12pt;
+    box-shadow: 0px, 10px, 40px, #000000;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.textfield > label{
+    color: white;
+    margin-bottom: 10px;
+}
+.textfield > input::placeholder{
+    color: black;
+}
+
+.btn-login{
+     width: 100%;
+     padding: 16px 0px;
+     margin: 25px;
+     border: none;
+     border-radius: 8px;
+     outline: none;
+     text-transform: uppercase;
+     font-weight: 800;
+     letter-spacing: 3px;
+     background: #081a26;
+     color: white;
+     cursor: pointer;
+     box-shadow: 0 10px 40px -12px #c8aa82;
+ }
+
+ /*link criar conta*/
+ .criar-style{
+    text-decoration: none;
+    color:white;
+   
+}
+.criar-link{
+    font-weight: 900;
+    text-decoration: none;
+    color:#c8aa82;
+}
+
+/*resposividade*/
