@@ -22,23 +22,39 @@ body{
 
 .main-login{
     width: 100vw;
-    height: 100vh;
-    background: #201b2c;
+    min-height: 100vh;
+    background: #000000;
     display: flex;
-    justify-content:center;
+    justify-content: space-around;
     align-items: center;
 }
 .left-login{
-    width: 50vw;
-    height: 100vh;
+    /* min-width: 500px;
+    max-width: 30vw; */
+    /* height: 60vh; */
+    width: 50vh;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    /* background-image: url('gif-jett.gif'); */
+    background-size: cover;
+    background-position: left;
+    padding: 20px;
+    border-radius: 10px;
+    /* margin: 1rem; */
+}
+
+.left-login-image
+{
+    width: 100%;
+    min-width: 300px;
 }
 .left-login > h1{
     font-size: 3vw;
-    color:#c8aa82;
+    color:#ffffff;
+
 }
 
 .left-login-image{
@@ -54,21 +70,29 @@ body{
 
 }
 .card-login {
-  width: 60%;
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 30px 35px;
-  background: #2f2841;
+  background: #081a26;;
   border-radius: 20px;
   box-shadow: 0px, 10px, 40px, #000000;
+  margin: 30px;
 }
-.card-login > h1{
-
+.card-login-title, .card-login-text
+{
     color:#c8aa82;
     font-weight: 800;
     margin: 0;
+    font-size: 1.625rem;
+}
+.criar-style{
+    color: white;
+    font-size: 1rem;
+    margin: 10px 0;
+    text-align: center;
 }
 
 .textfield{
@@ -115,6 +139,13 @@ body{
      cursor: pointer;
      box-shadow: 0 10px 40px -12px #c8aa82;
  }
+ .btn-login:hover{
+     background: #c8aa82;
+
+ }
+ .criar-styles:hover{
+     transform: scale(1.03);
+ }
 
  /*link criar conta*/
  .criar-style{
@@ -130,19 +161,30 @@ body{
 
 /*resposividade*/
 
+@media screen and (max-width: 1024px)
+{
+    .card-login-text
+    {
+        font-size: 1.225rem;
+    }
+    .card-login-title
+    {
+        font-size: 1.5rem;
+
+    }
+}
+
 @media screen and (max-width: 768px)
 {
     .main-login{
         flex-direction: column;
-        justify-content: flex-start;
+        /* justify-content: flex-start; */
     }
     .left-login{
         width: 100vw;
-        height: 40lvh;
+        height: auto;
+        margin: 1rem;
         /* height: 50vh; */
-    }
-    .left-login > h1{
-        font-size: 5vw;
     }
     .left-login-image{
         width: 50vw;
@@ -151,6 +193,10 @@ body{
         width: 90%;
         height: 50lvh;
         margin: 0 0 2rem;
+        padding: 30px 10px;
+    }
+    .card-login > h1{
+        font-size: 1.5rem;
     }
     .textfield > input{
         padding: 10px;
@@ -158,5 +204,11 @@ body{
     .btn-login{
         padding: 12px 0px;
         margin: 15px;
-    }s
+    }
+}
+
+
+@media screen and (max-width: 425px)
+{
+
 }

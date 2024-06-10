@@ -70,6 +70,7 @@ body {
     align-items: center;
     flex: 1;
     text-align: center;
+    font-size: medium;
 
 }
 
@@ -110,12 +111,23 @@ body {
 
 .balao > p
 {
+    margin: auto;
     color: var(--font-color1);
     line-height: 1.5;
     font-size: 1.245rem;
 }
 
-.container_content_link
+/* CSS para efeito de zoom */
+.balao {
+  transition: transform 0.3s; /* Adiciona transição suave */
+}
+
+.balao:hover {
+  transform: scale(1.1); /* Aumenta a escala em 10% ao passar o mouse por cima */
+}
+
+
+/* .container_content_link
 {
     flex: 1;
     display: flex;
@@ -124,30 +136,34 @@ body {
     justify-content: center;
     width: 100%;
     text-align: center;
-}
+} */
 
 .btn
-{
+{ 
     flex: 0;
     /* width: 150px; */
     background-color: var(--font-color1);
     color: var(--font-color2);
     text-decoration: none;
     display: inline-block;
-
-     padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1.5rem;
   text-decoration: none;
   font-size: 1.2rem;
   border-radius: 5px;
   transition: background 0.3s;
 }
 
-.btn:hover
-{
-    background: #a88a6f;
+.btn {
+  transition: transform 0.3s; /* Adiciona transição suave */
+  background:#a88a6f;
+}
+
+.btn:hover {
+  transform: scale(1.1); /* Aumenta a escala em 10% ao passar o mouse por cima */
 }
 
 /* BANNER */
+
 
 .banner
 {
@@ -165,7 +181,25 @@ img
 
 /* SERVICO */
 
+.gif{
+  background-image: url('gif1.gif');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.gif2{
+  background-image: url('gif2.gif');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
 .servicos {
+   text-align: center;
     padding: 2rem 0;
     background: #fff;
     color: #333;
@@ -174,12 +208,11 @@ img
   .servicos .container {
     max-width: 1200px;
     margin: 0 auto;
-    margin-left: 10px;
     padding: 0 20px;
   }
 
   .servicos h2 {
-    text-align: center;
+    color: #c8aa82;
     margin-bottom: 2rem;
     font-size: 2rem;
   }
@@ -190,20 +223,47 @@ img
   }
 
   .servico img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     margin-bottom: 1rem;
   }
 
   .servico h3 {
+    color: white;
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
-
+  @keyframes changeBorderColor {
+    0% {
+      border-color: red;
+    }
+    25% {
+      border-color: blue;
+    }
+    50% {
+      border-color: green;
+    }
+    75% {
+      border-color: yellow;
+    }
+    100% {
+      border-color: red;
+    }
+  }
+  
   .servico p {
     font-size: 1rem;
     line-height: 1.5;
+    color: #c8aa82;
+    padding: 1rem;
+    height: 120px;
+    background: var(--bg-dark);
+    border-radius: 1rem;
+    text-align: center; /* Isso centraliza o texto dentro do parágrafo */
+    border: 2px solid; /* Define a borda e a espessura */
+    animation: changeBorderColor 4s infinite; /* Adiciona a animação */
   }
+  
 
   /* Testemunhos */
   .testemunhos {
@@ -220,7 +280,7 @@ img
   }
 
   .testemunho {
-    text-align: left;
+    text-align: center;
     margin-bottom: auto;
   }
 
@@ -231,7 +291,7 @@ img
   }
 
   .testemunho h2 {
-    text-align: left;
+    text-align: center;
     margin-bottom: 10px;
   }
 

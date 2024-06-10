@@ -41,7 +41,11 @@ body {
 
 .header > h1
 {
-    margin-left: 1rem;
+    margin-left: 4rem;
+    font-weight: 900;
+    font-size: 40px;
+    
+    
 }
 
 .header > h1 > a
@@ -68,11 +72,13 @@ body {
     position: relative;
     font-size: 1rem;
     transition: .3s ease-in-out;
+    font-size: 18px;
 }
 
 .header_nav_link:hover
 {
     color: var(--font-color2);
+    
 }
 
 .dropdown-menu {
