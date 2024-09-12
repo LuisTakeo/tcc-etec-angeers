@@ -1,0 +1,40 @@
+@import url('../style.css');
+@import url('../form.css');
+
+.main__servicos__title
+{
+    text-align: center;
+    /* margin: 2rem 0; */
+
+}
+
+.form{
+    /* border: 2px solid red; */
+    padding: 0;
+}
+
+.form__block
+{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    text-align: center;
+    /* align-items: center; */
+    margin: 1rem auto;
+}
+
+.form__label
+{
+    /* width: 100px; */
+    text-align: right;
+}
+
+.form__input
+{
+    flex: 1;
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

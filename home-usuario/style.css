@@ -1,0 +1,169 @@
+@import url('./header.css'); /* Importing the header.css file */
+@import url('./global.css'); /* Importing the global.css file */
+@import url('../css/footer-home.css'); /* Importing the footer.css file */
+
+/* IMPORTANTE:::: Para funcionamento do import, deeve se botar nas primeiras linhas do código */
+.main
+{
+    background-color: var(--bg-color);
+}
+
+.main__perfil
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    border-bottom: gainsboro 1px solid;
+}
+
+.main__perfil__title
+{
+    font-size: 1.725rem;
+    font-weight: 600;
+    color: var(--color3);
+}
+
+.main__servicos
+{
+    min-height: 90lvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+    border-bottom: gainsboro 1px solid;
+    background-color: rgba(220, 220, 220, 0.404);
+}
+
+.main__servicos__title
+{
+    font-size: 1.225rem;
+    font-weight: 600;
+    color: var(--color4);
+}
+
+.main__servicos__cards
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    justify-content: center;
+    /* align-items: center; */
+    gap: 1rem;
+
+    min-height: auto;
+}
+
+.card
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 5px;
+    border: #29608487 1px solid;
+    height: 200px;
+    /* min-width: 400px;
+    width: 33%; */
+}
+
+.card:hover
+{
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    top: -5px;
+}
+
+.card__description
+{
+    margin: .5rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: .5rem;
+}
+
+.card__link
+{
+    background-color: var(--color3);
+    text-decoration: none;
+    color: var(--font-color2);
+    margin-bottom: .5rem;
+    text-align: center;
+    padding: .5rem;
+    position: relative;
+}
+
+.card__link:hover
+{
+    background-color: var(--color4);
+    top: -2px;
+}
+
+.center
+{
+    justify-content: center;
+    align-items: center;
+}
+
+.center{
+    text-decoration: none;
+}
+
+.service_text
+{
+    color: var(--color4);
+    text-decoration: none;
+}
+
+.card__add__service
+{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+
+}
+
+@media screen and (max-width: 768px) {
+    .header__title > a
+    {
+        font-size: 1.625rem;
+    }
+
+    .main__perfil__title
+    {
+        font-size: 1.425rem;
+    }
+
+    .main__servicos__title
+    {
+        font-size: 1.125rem;
+    }
+
+    /* .main__servicos__cards
+    {
+
+    } */
+}
+
+@media screen and (max-width: 480px){
+    .main__servicos__cards
+    {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media screen and (max-height: 768px) {
+    .main__servicos
+    {
+        min-height: 60vh;
+    }
+
+}

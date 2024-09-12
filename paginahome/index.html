@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--OFICIAL-->
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Dinâmico de Trabalho com Jogos</title>
+    <link rel="stylesheet" href="stylehome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <link rel="stylesheet" href="../css/header-home.css">
+    <link rel="stylesheet" href="../css/footer-home.css">
+</head>
+<body>
+
+    <!--Header-->
+    <header class="header">
+        <h1><a href="../paginaHome/index.html"><img class="" src="../logo2.jpg" width="100%" height="100%" alt="" srcset=""></a></h1>
+        <ul class="header_nav">
+            <li><a class="header_nav_link" href="../Serviço/Servico.html"><h3>Serviços</h3></a></li>
+            <li><a class="header_nav_link" href="../paginaajuda/ajuda.html"><h3>Ajuda</h3></a></li>
+            <a class="header_nav_link" href="../Serviço/Servico.html"><h3>Loja</h3></a>
+        </ul>
+        <ul class="header_nav">
+            <li><a class="header_nav_link" href="../login/login.php"><h3>Área do cliente</h3></a></li>
+        </ul>
+    </header>
+
+    <!-- Fundo imagem -->
+    <div class="container principal">
+        <div class="container_content">
+            <div class="container_content_title">
+                <h1 class="title" class="title"><strong>Descubra o Maravilhoso</strong></h1>
+                <p class="sub_title"><strong>Mundo dos jogos!</strong></p>
+            </div>
+            <!--pop up-->
+            <style>
+                #abrir-popup:checked ~ #conteudo {
+                  display: block;
+                }
+                #fechar-popup:checked ~ #conteudo, #fechar-popup:checked ~ #fechar-popup-btn{
+                  display: none;
+                }
+
+                #abrir-popup-btn {
+                  display: block;
+                  color: white;
+                  background-color:  #081a26;
+                  width: fit-content;
+                  padding: 12px 34px;
+                  border-radius: 4px;
+                  box-shadow: 0px 5px 15px -5px #20003044;
+                  cursor: pointer;
+                }
+                #fechar-popup-btn {
+                  background-color: #00000020;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100vw;
+                  height: 100vh;
+                }
+
+                #conteudo {
+                  box-sizing: border-box;
+                  position: fixed;
+                  width: min(380px, 90vw);
+                  height: 260px;
+                  left: max(calc(50vw - 380px / 2), 4vw);
+                  top: calc(50vh - 80px);
+
+                  padding: 22px;
+                  color: white;
+                  background-color: #081a26;
+                  border: 1px solid #c8aa82;
+                  border-radius: 8px;
+                  box-shadow: 0px 5px 15px -5px #0000003c;
+                }
+            </style>
+            <input id="abrir-popup" name="popup" type="radio" hidden>
+            <input id="fechar-popup" name="popup" type="radio" hidden checked>
+
+            <label id="abrir-popup-btn" for="abrir-popup">Nosso Discord</label>
+            <label id="fechar-popup-btn" for="fechar-popup"></label>
+
+            <div id="conteudo">
+              <p>>Junte-se à nossa comunidade!</p>
+            </div>
+            <br>
+            <br>
+            <!-- Adição dos balões de conteúdo -->
+           <!--<div class="container_content_services">
+                <div class="balao">
+                    <h2>Serviço Personalizado</h2>
+                    <p>Oferecemos serviços personalizados para cada jogador, adaptados às suas necessidades e preferências.</p>
+                    <a class="btn" href="../Serviço/Servico.html">Saiba Mais</a>
+                </div>
+                <div class="balao">
+                    <h2>Treinamento e Mentoria</h2>
+                    <p>Receba treinamento de profissionais experientes para melhorar suas habilidades e estratégias de jogo.</p>
+                    <a class="btn" href="../Serviço/Servico.html">Saiba Mais</a>
+                </div>
+                <div class="balao">
+                    <h2>Suporte Técnico</h2>
+                    <p>Obtenha suporte técnico 24/7 para resolver qualquer problema relacionado aos seus jogos.</p>
+                    <a class="btn" href="../Serviço/Servico.html">Saiba Mais</a>
+                </div>
+                <div class="balao">
+                    <h2>Comunidade Ativa</h2>
+                    <p>Participe de uma comunidade ativa de jogadores e troque experiências e dicas.</p>
+                    <a class="btn" href="../Serviço/Servico.html">Saiba Mais</a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Banner -->
+    <section class="banner">
+        <div class="container">
+            <h1>Encante-se pelos desafios™</h1>
+        </div>
+        <script src="banner.js"></script>
+    </section>
+
+    <!-- Estrutura -->
+    <section class="servicos">
+        <div class="container">
+            <h2><i>A nossa dedicação!</i></h2>
+            <div class="container">
+                <div class="box-container">
+                    <div class="box">
+                        <img src="lolservico1.png" alt="League of Legends">
+                        <h3>LEAGUE OF LEGENDS</h3>
+                        <p>"League of Legends" é um jogo online de estratégia em equipe onde dois times competem para destruir a base inimiga enquanto defendem a própria. Os jogadores controlam campeões com habilidades únicas, acumulando ouro e experiência para se fortalecer. Com uma ampla variedade de personagens, mapas e estratégias, o jogo também é conhecido por seu cenário competitivo global, com campeonatos prestigiados e uma imensa base de jogadores ao redor do mundo.</p>
+                    </div>
+                    <div class="box">
+                        <img src="valorantservico1.png" alt="Valorant">
+                        <h3>VALORANT</h3>
+                        <p>"Valorant" é um jogo de tiro tático da Riot Games com partidas 5v5. Jogadores escolhem agentes com habilidades únicas e competem em rodadas de ataque e defesa para plantar ou desarmar uma bomba. O jogo destaca-se pela combinação de estratégia, trabalho em equipe e precisão de tiro, com foco em táticas e controle de mapas. Um sistema econômico permite a compra de armas e habilidades entre as rodadas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="contact">
+        <h2>Entre em Contato:</h2>
+        <p>Não perca tempo, transforme sua experiência de jogo hoje mesmo! Entre em contato conosco para uma consulta inicial gratuita e descubra como podemos ajudá-lo a alcançar o próximo nível.</p>
+        <p><strong>Email:</strong> <a href="#">contato@personalgame.com</a></p>
+        <p><strong>Telefone:</strong> (11) 1234-5678</p>
+    </section> -->
+
+    <!-- Estrutura e Seção de Testemunhos -->
+    <div class="testemunho_banner">
+        <h2>Depoimentos de Nossos Clientes</h2>
+    </div>
+    <section class="testemunhos"> <!-- Corrigi a classe de 'testemunho' para 'testemunhos' -->
+
+        <div class="testemunho_item">
+            <img src="icon1.jpg" alt="Foto de Lucas">
+            <div class="testemunho_bubble">
+                <h3>Lucas, Cliente Satisfeito</h3>
+                <p>A melhor experiência de jogo que já tive!</p>
+            </div>
+        </div>
+
+        <div class="testemunho_item">
+            <img src="icon2.jpg" alt="Foto de Ana">
+            <div class="testemunho_bubble">
+                <h3>Ana, Jogadora Contente</h3>
+                <p>"Incrível suporte e ótimos serviços."</p>
+            </div>
+        </div>
+
+        <div class="testemunho_item">
+            <img src="icon3.jpg" alt="Foto de Cecília">
+            <div class="testemunho_bubble">
+                <h3>Cecília, Jogadora Contente</h3>
+                <p>Desde que comecei a usar o serviço de consultoria, meu desempenho em jogos subiu consideravelmente. A análise de performance é detalhada e realmente fez a diferença.</p>
+            </div>
+        </div>
+
+        <div class="testemunho_item">
+            <img src="icon4.jpg" alt="Foto de Pedro">
+            <div class="testemunho_bubble">
+                <h3>Pedro, Jogador Contente</h3>
+                <p>O design do meu setup ficou incrível! Agora, meu espaço de jogo reflete minha paixão por games e está super funcional.</p>
+            </div>
+        </div>
+    </section>
+    <div class="linha"></div>
+    <!-- Final da página -->
+    <footer id="final">
+        <div class="container">
+            <div class="footer-info">
+                <p>TCC ETEC SEBRAE &copy; 2024 - Todos os direitos reservados</p>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Serviço</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <p>Acompanhe-nos nas redes sociais!</p>
+                <ul>
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/eloanger/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.tiktok.com/@eloanger" target="_blank"><i class="fab fa-tiktok"></i></a></li>
+                    <li><a href="https://www.youtube.com/@eloanger" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                </ul>
+            </div>
+            <a href="http://localhost:58513/" target="_blank">Abra o App Mobile</a>
+        </div>
+    </footer>
+
+    <script src="home.js"></script>
+
+    <!-- <div class="janela-modal" id="janela-modal">
+        <div class="modal">
+            <h1>Suporte 24/7</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus fugit nemo aut autem animi, cum officia ad at. Repellendus magni sed, consequatur aperiam pariatur doloremque. Error voluptatum atque officiis quo.</p>
+        </div>
+    </div> -->
+</body>
+</html>

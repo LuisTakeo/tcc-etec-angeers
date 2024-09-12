@@ -1,0 +1,17 @@
+#TODO (A FAZER)
+IMPORTANTE:
+    -> Conferir links de todas as páginas -> (sugestão: criar fluxograma próprio para controle.)
+    -> Conferir responsividade de todas as páginas
+    -> Conferir visibilidade de inputs nas páginas de cadastro
+
+
+18/06/2024
+Luis Takeo:
+    Login:
+        - corrigido responsividade (imagem deve ser tratada como elemento img para não quebrar)
+    Home:
+        - corrigido novamente responsividade da tela home. Alterado cor de cards para melhor visibilidade de conteúdo
+        - corrigido links para acesso as páginas e de css da home e footer
+        - comentado conteúdo que não está pronto (sugestão: Se não utilizar ainda, deixe comentado)
+    Serviços:
+        - corrigido links para aceesso as páginas e de css da home e footer

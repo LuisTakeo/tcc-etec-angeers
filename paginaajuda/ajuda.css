@@ -1,0 +1,234 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000000;
+}
+
+/*fundo imagem*/
+.main-login{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+
+.rigth-login{
+    width: 50vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.card-login {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 35px;
+  background: #ffffff;;
+  box-shadow: 0px, 10px, 40px, #000000;
+  margin: 30px;
+  /* background-color: rgba(160, 179, 176, 0.648); */
+  text-align: center;
+ 
+}
+
+.card-login > h1{
+
+    color: black;
+    font-weight: 800;
+    margin: 0;
+}
+
+.textfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.textfield > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(231, 231, 231, 0.562);
+    color: black;
+    font-size: 12pt;
+    box-shadow: 0px, 10px, 40px, #000000;
+    outline: none;
+    box-sizing: border-box;
+    opacity: 0.6;
+}
+
+.textfield > label{
+    color: white;
+    margin-bottom: 10px;
+}
+.textfield > input::placeholder{
+    color: black;
+}
+
+.btn-login{
+     width: 280px;
+     padding: 16px 0px;
+     margin: 25px;
+     border: none;
+     border-radius: 8px;
+     outline: none;
+     text-transform: uppercase;
+     font-weight: 800;
+     letter-spacing: 3px;
+     background: #000000;
+     color: white;
+     cursor: pointer;
+     box-shadow: 0 10px 40px -12px #9370db;
+ }
+ .btn-login:hover{
+     background: #9370db;
+
+ }
+ .card-login > p:hover{
+     transform: scale(1.03);
+ }
+
+ /*link criar conta*/
+ .criar-style{
+    text-decoration: none;
+    color:white;
+
+}
+.criar-link{
+    font-weight: 900;
+    text-decoration: none;
+    color:#c8aa82;
+}
+.home-style{
+    font-weight: 900;
+    text-decoration: none;
+    text-align: right;
+    color: #c8aa82;
+    align-self: right;
+}
+.home-style:hover{
+ transform: scale(1.03);
+}
+
+/*resposividade*/
+
+@media screen and (max-width: 768px)
+{
+    .main-login{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .left-login{
+        width: 100vw;
+    min-height: 50vh;
+    display: none;
+        /* height: 50vh; */
+    }
+    .left-login > h1{
+        font-size: 5vw;
+    }
+    .left-login-image{
+        width: 50vw;
+    }
+    .card-login{
+        width: 90%;
+        min-height: 50lvh;
+        margin: 0 0 2rem;
+    }
+    .textfield > input{
+        padding: 10px;
+    }
+    .btn-login{
+        padding: 12px 0px;
+        margin: 15px;
+    }
+}
+
+/* Box */
+.container .heading{
+    text-align: center;
+    padding-bottom: 15px;
+    color:#ffffff;
+    text-shadow: 0 5px 10px rgba(0,0,0,.2);
+    font-size: 50px;
+  }
+  
+  .container .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap:15px;
+  }
+  
+  .container .box-container .box{
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    border-radius: 5px;
+    background: #fff;
+    text-align: center;
+    padding:30px 20px;
+    width: 600px;
+    height: 200px;
+  }
+  
+  .container .box-container .box img{
+    height: 30px;
+  
+  }
+  
+  .container .box-container .box h3{
+    color:#444;
+    font-size: 22px;
+    padding:10px 0;
+  }
+  
+  .container .box-container .box p{
+    color:#777;
+    font-size: 15px;
+    line-height: 1.8;
+    text-decoration: none;
+  }
+  .container .box-container .box p a{
+    color:#777;
+    font-size: 15px;
+    line-height: 1.8;
+    text-decoration: none;
+  }
+  .container .box-container .box p:hover{
+    color: #8c6ddf;
+  
+  }
+
+
+  .link_text{
+      text-decoration: none;
+      color: black;
+  }
+  
+  
+  
+  
+  
+  .container .box-container .box:hover{
+    box-shadow: 0 10px 15px rgba(0,0,0,.3);
+    transform: scale(1.03);
+  }
