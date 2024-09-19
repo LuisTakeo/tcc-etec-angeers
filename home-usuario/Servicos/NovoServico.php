@@ -26,6 +26,10 @@ include("../../controllers/jogadorController/jogadorController.php");
             header("Location: ../../home-jogador/home.php");
             exit();
         }
+        if (isset($_GET['tipo']))
+            $tipo_servico = $_GET['tipo'];
+        if (isset($_POST['id']))
+            $id_servico = $_POST['id'];
     ?>
     <div class="container">
           <header>
@@ -51,12 +55,21 @@ include("../../controllers/jogadorController/jogadorController.php");
 		<section class="main__perfil">
 			<h2 class="main__perfil__title">Bem vindo, <?php echo $_SESSION['user_name']; ?>!</h2>
 		</section>
+        <section class="main__servicos">
+            <div class="main__servicos__cards">
+                <div class="card">
+                    <div class="card__description">
+                        <h4 class="card__description__title">Criar novo serviço de <?=$tipo_servico?></h4>
+                        <p class="card__description__text"></p>
+                    </div>
+                    <a class="card__link" href="./NovoServico.php?tipo=EloJob">Contratar</a>
+                </div>
+            </div>
+        </section>
+
         <?php
-        if (isset($_GET['tipo']))
-            $tipo_servico = $_GET['tipo'];
-        if (isset($_POST['id']))
-            $id_servico = $_POST['id'];
-        echo $tipo_servico;
+
+
         try {
             $connect = connect_to_db_pdo($server, $user, $password, $db);
             if (!$connect)
