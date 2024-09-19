@@ -12,7 +12,7 @@ body{
 
 /*fundo imagem*/
 .background-image {
-    background-image: url('gif10.gif');
+    background-image: url("fundo_login.gif");
     /* Substitua pelo caminho do seu gif */
     background-size: cover;
     background-position: center;
@@ -26,27 +26,11 @@ body{
     justify-content: space-around;
     align-items: center;
     height: 100%;
+  
 }
 
-.left-login{
-    z-index: 3;
-    width: 30vw;
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* background-image: url('gif-jett.gif'); */
-    background-size: cover;
-    background-position: left;
-    padding: 20px;
-    border-radius: 10px;
-}
-.left-login > h1{
-    font-size: 3vw;
-    color:#ffffff;
 
-}
+
 
 .left-login-image{
     width: 35vw;
@@ -68,17 +52,26 @@ body{
   align-items: center;
   flex-direction: column;
   padding: 30px 35px;
-  background: #081a26;;
+  background: rgba(215, 215, 215, 0.37);
   border-radius: 20px;
-  box-shadow: 0px, 10px, 40px, #000000;
+  box-shadow: 0px, 10px, 40px, #ffffff;
   margin: 30px;
   /* background-color: rgba(160, 179, 176, 0.648); */
   text-align: center;
+  border: solid black 2px;
 }
-
+.select{
+    width: 100px;
+    height: 30px;
+    border-radius: 11px;
+    border: solid rgba(255, 255, 255, 0) 1px;
+    text-decoration: none;
+    text-align: center;
+    background-color:  rgb(255, 255, 255);
+}
 .card-login > h1{
 
-    color:#c8aa82;
+    color:#ffffff;
     font-weight: 800;
     margin: 0;
 }
@@ -96,7 +89,7 @@ body{
     border: none;
     border-radius: 10px;
     padding: 15px;
-    background: white;
+    background:  rgb(255, 255, 255);
     color: black;
     font-size: 12pt;
     box-shadow: 0px, 10px, 40px, #000000;
@@ -122,13 +115,13 @@ body{
      text-transform: uppercase;
      font-weight: 800;
      letter-spacing: 3px;
-     background: #081a26;
+     background: #000000;
      color: white;
      cursor: pointer;
-     box-shadow: 0 10px 40px -12px #c8aa82;
+     box-shadow: 0 10px 40px -12px #9370db;
  }
  .btn-login:hover{
-     background: #c8aa82;
+     background: #9370db;
 
  }
  .card-login > p:hover{
@@ -138,19 +131,25 @@ body{
  /*link criar conta*/
  .criar-style{
     text-decoration: none;
-    color:white;
+    color:rgb(255, 255, 255);
+    font-weight: 900;
 
 }
+.texto-link{
+    color: rgb(0, 0, 0);
+
+}
+
 .criar-link{
     font-weight: 900;
     text-decoration: none;
-    color:#c8aa82;
+    color:#9370db;
 }
 .home-style{
     font-weight: 900;
     text-decoration: none;
     text-align: right;
-    color: #c8aa82;
+    color: #ffffff;
     align-self: right;
 }
 .home-style:hover{
@@ -189,4 +188,11 @@ body{
         padding: 12px 0px;
         margin: 15px;
     }
+}
+.error{
+    background-color: rgba(255, 0, 0, 0.295);
+    font-weight: 900;
+    border-radius: 11px;
+    padding: 5px;
+    color: rgba(255, 255, 255, 0.486);
 }

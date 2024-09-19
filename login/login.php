@@ -25,7 +25,7 @@
                 ?>
                 <div class="textfield">
                 <label for="typelogin">Tipo de Login</label>
-                <select name="typelogin" id="">
+                <select name="typelogin" id="" class="select">
                     <option value="jogador">Jogador</option>
                     <option value="usuario">Usuario</option>
                 </select>
@@ -40,7 +40,7 @@
                     <p class="criar-style">  <a href="../recuperaremail/email-recuperar-senha.html" class="criar-link"> <i>    Esqueceu sua senha?</i> </a></p>
                 </div>
                 <a href="../home-usuario/home.html"><button class="btn-login">LOGIN</button></a>
-                <p class="criar-style"> Se não tem uma conta <a href="../usuario/usuario.php" class="criar-link"> <i>clique aqui </i> </a></p>
+                <p class="criar-style">Se não tem uma conta  <a href="../usuario/usuario.php" class="criar-link"> <i >clique aqui </i> </a></p>
                <a href="../paginahome/index.html" class="home-style">  <p ><i>Home</i> </p> </a>
 
             </form>

@@ -21,30 +21,25 @@
             exit();
         }
     ?>
-    <div class="container">
-        <header class="header">
-			<div class="header__top">
-				<h1 class="header__title"><a href="../home.php"><img class="" src="../../logo.png" width="150" height="150" alt="" srcset=""></a></h1>
-				<div class="header__box">
-					<a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
-					</a>
-                    <ul class="header__box__options">
-                        <li class="header__box__options__link"><a href="../Perfil/index.php" class="options__link">Perfil</a></li>
-                        <li class="header__box__options__link"><a href="../logout.php"  class="options__link">Sair</a></li>
-                    </ul>
-				</div>
-			</div>
+ <div class="container">
+          <header>
 			<nav class="header__nav">
 				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="../Servicos/Servicos.php"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
-			</nav>
-            <!-- Add your header content here -->
-        </header>
-    </div>
+					<li><a class="header__nav__link" href="./home.php"><h3>Home</h3></a></li>
+					<li><a class="header__nav__link" href="./Servicos/Servicos.php"><h3>Serviços</h3></a></li>
+					<li><a class="header__nav__link" href="./Ajuda/index.php"><h3>Ajuda</h3></a></li>
+                    </ul>
 
+                    <div class="dropdown">
+  <button class="dropbtn"><a class="header__nav__link perfil" href="#">
+						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
+					</a></button>
+  <div class="dropdown-content">
+    <a href="perfil/index.php" >Perfil</a>
+    <a href="logout.php">Sair</a>
+  </div>
+    </div>
+</div>
     <main class="container main">
 		<section class="main__perfil">
 			<h2 class="main__perfil__title">Bem vindo, <?php echo $_SESSION['user_name']; ?>!</h2>

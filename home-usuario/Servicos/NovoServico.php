@@ -1,10 +1,8 @@
 <?php
 use function Connection\connect_to_db_pdo;
 use function controllers\jogadorController\getJogadores;
-use function controllers\servicosController\getServicos;
 include("../../connection/connect.php");
 include("../../controllers/jogadorController/jogadorController.php");
-include("../../controllers/servicosController/servicosController.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,53 +51,38 @@ include("../../controllers/servicosController/servicosController.php");
 		<section class="main__perfil">
 			<h2 class="main__perfil__title">Bem vindo, <?php echo $_SESSION['user_name']; ?>!</h2>
 		</section>
-        <section class="main__servicos">
-            <div class="main__servicos__title">
-                <h3>O que deseja hoje?</h3>
-            </div>
-            <div class="main__servicos__cards">
-                <!-- <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Elojob</h4>
-                        <p class="card__description__text">Tenha sua conta upada sem preocupações</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=EloJob">Contratar</a>
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Duo Boost</h4>
-                        <p class="card__description__text">Suba sua conta junto com um duo</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=DuoBoost">Contratar</a>
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__title">Coach</h4>
-                        <p class="card__description__text">Aprenda mais sobre o jogo e adquira conhecimentos com um HighElo</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=Coach">Contratar</a>
-                </div> -->
-                <?php
-                    $connect = connect_to_db_pdo($server, $user, $password, $db);
-                    if (!$connect)
-                        throw new \PDOException("Connection failed");
-                    $servicos = getServicos($connect);
-                    if ($servicos) {
-                        foreach ($servicos as $servico) {
-                            echo "<div class='card'>";
-                            echo "<div class='card__description'>";
-                            echo "<h4 class='card__description__title'>" . $servico['nm_serv'] . "</h4>";
-                            echo "<p class='card__description__text'>" . $servico['ds_serv'] . "</p>";
-                            echo "</div>";
-                            echo "<a class='card__link' href='./NovoServico.php?tipo=" . $servico['nm_serv'] . "'>Contratar</a>";
-                            echo "</div>";
-                        }
-                    }
-                ?>
-
-            </div>
-            <!-- Add your profile information here -->
-        </section>
+        <?php
+        if (isset($_GET['tipo']))
+            $tipo_servico = $_GET['tipo'];
+        if (isset($_POST['id']))
+            $id_servico = $_POST['id'];
+        echo $tipo_servico;
+        try {
+            $connect = connect_to_db_pdo($server, $user, $password, $db);
+            if (!$connect)
+                throw new \PDOException("Connection failed");
+            $jogadores = getJogadores($connect);
+            if ($jogadores) {
+                echo "<section class='main__servicos'>";
+                echo "<div class='main__servicos__title'>";
+                echo "<h3>Jogadores disponíveis</h3>";
+                echo "</div>";
+                echo "<div class='main__servicos__cards'>";
+                foreach ($jogadores as $jogador) {
+                    echo "<div class='card'>";
+                    echo "<div class='card__description'>";
+                    echo "<h4 class='card__description__title'>" . $jogador['name_jog'] . "</h4>";
+                    echo "<p class='card__description__text'>" . $jogador['ds_rank'] . "</p>";
+                    echo "</div>";
+                    echo "<a class='card__link' href='#'>Detalhes</a>";
+                    echo "</div>";
+                }
+                echo "</section>";
+            }
+        } catch (\PDOException $err) {
+            echo "Error: " . $err->getMessage();
+        }
+        ?>
     </main>
 
     <footer id="final">

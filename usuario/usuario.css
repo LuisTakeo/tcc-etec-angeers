@@ -7,7 +7,7 @@
 }
 
 .container-login{
-    background-image: url("jett-fundo.gif");
+    background-image: url("fundo_roxo.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +28,7 @@
     display: block;
     text-decoration: none;
     padding: 15px;
-    background: rgba(160, 179, 176, .25);
+    background: rgba(255, 255, 255, 0.25);
     color: #d3e2e0;
     font-size: 20px;
     float: left;
@@ -38,16 +38,16 @@
     transition: 0.5s ease;
 }
 .tab-group li a:hover {
-    background: #c8aa82;
-    color: #000000;
+    background: #9370db;
+    color: #ffffff;
 }
 .tab-group .tab1 a {
-    background: #c8aa82;
-    color: #000000;
+    background: #9370db;
+    color: #faf8ff;
 }
 
 .tab-group .tab2 a {
-    background-color: rgba(160, 179, 176, 0.648);
+    background-color: rgba(160, 179, 176, .25);
     color: #000000;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .form-box{
-    background-color: rgba(215, 215, 215, 0.923);
+    background-color: rgba(215, 215, 215, 0.37);
     backdrop-filter: blur(5px);
     padding: 30px 40px;
     /* width: 50%; */
@@ -79,10 +79,10 @@
 
 .form-box p{
     font-weight: bold;
-    color: #3D3D3D;
+    color: #000000;
 }
 .form-box p a{
-    color: #c8aa82;
+    color: #ffffff;
     text-decoration: none;
 }
 .form-box form{
@@ -92,7 +92,7 @@ form .input-group{
     margin-bottom: 15px;
 }
 form .input-group label{
-    color: #3D3D3D;
+    color: #000000;
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
@@ -106,7 +106,7 @@ form .input-group input{
     border: 2px solid transparent;
     padding: 15px;
     font-size: 15px;
-    color: #616161;
+    color: #000000;
     transition: all 0.4s ease;
 }
 
@@ -118,7 +118,7 @@ form .input-group input:focus{
 form .input-group button{
     width: 100%;
     height: 47px;
-    background-color: #c8aa82;
+    background-color: #9370db;
     border-radius: 20px;
     outline: none;
     border: none;
@@ -144,5 +144,6 @@ form .input-group button{
     transform: scale(1.03);
     font-style: italic;
 }
+
 
 /*resposividade*/
