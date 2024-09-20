@@ -93,7 +93,9 @@
     text-align: center;
     padding: .5rem;
     position: relative;
-    border-radius: 20px;
+    border-radius: 5px;
+    width: 80px;
+    align-items: center;
 }
 
 .card__link:hover

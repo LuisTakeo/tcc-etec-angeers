@@ -25,9 +25,9 @@
           <header>
 			<nav class="header__nav">
 				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="./home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="./Servicos/Servicos.php"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="./Ajuda/index.php"><h3>Ajuda</h3></a></li>
+					<li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
+					<li><a class="header__nav__link" href="../Servicos/Servicos.php"><h3>Serviços</h3></a></li>
+					<li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
                     </ul>
 
                     <div class="dropdown">
@@ -36,7 +36,7 @@
 					</a></button>
   <div class="dropdown-content">
     <a href="perfil/index.php" >Perfil</a>
-    <a href="logout.php">Sair</a>
+    <a href="../logout.php">Sair</a>
   </div>
     </div>
 </div>

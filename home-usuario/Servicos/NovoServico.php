@@ -84,7 +84,7 @@ include("../../controllers/jogadorController/jogadorController.php");
                 foreach ($jogadores as $jogador) {
                     echo "<div class='card'>";
                     echo "<div class='card__description'>";
-                    echo "<h4 class='card__description__title'>" . $jogador['name_jog'] . "</h4>";
+                    echo "<h4 class='card__description__title'>" . $jogador['name_jog'] . ' - ' . $jogador['ds_email'] . "</h4>";
                     echo "<p class='card__description__text'>" . $jogador['ds_rank'] . "</p>";
                     echo "</div>";
                     echo "<a class='card__link' href='#'>Detalhes</a>";
