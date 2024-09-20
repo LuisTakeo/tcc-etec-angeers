@@ -9,6 +9,7 @@ include("../controllers/usuarioController/usuarioController.php");
 
 try
 {
+    echo "oi";
     $connect = connect_to_db_pdo($server, $user, $password, $db);
     if (!$connect)
         throw new \PDOException("Connection failed");
