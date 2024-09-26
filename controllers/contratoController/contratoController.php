@@ -68,7 +68,14 @@ function getContrato(\PDO $connect, int $id)
 
 function getContratosByUsuario(\PDO $connect, int $usuario_id)
 {
-    $sql = "SELECT * FROM tb_contrato WHERE cd_cli = :usuario_id";
+    $sql = "SELECT
+    tb_cliente.cd_cli, tb_cliente.name_cli, tb_cliente.ds_email, tb_cliente.no_tel, tb_jog_profis.cd_jog, tb_jog_profis.name_jog, tb_jog_profis.no_tel,
+    tb_jog_profis.ds_rank,
+    tb_contrato.*
+    FROM tb_contrato
+    LEFT JOIN tb_jog_profis ON tb_contrato.cd_jog = tb_jog_profis.cd_jog
+    INNER JOIN tb_cliente ON tb_contrato.cd_cli = tb_cliente.cd_cli
+    WHERE tb_contrato.cd_cli = :usuario_id";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->execute();
@@ -77,9 +84,31 @@ function getContratosByUsuario(\PDO $connect, int $usuario_id)
 
 function getContratosByJogador(\PDO $connect, int $jogador_id)
 {
-    $sql = "SELECT * FROM tb_contrato WHERE cd_jog = :jogador_id";
+    $sql = "SELECT
+    tb_cliente.cd_cli, tb_cliente.name_cli, tb_cliente.ds_email, tb_cliente.no_tel, tb_jog_profis.cd_jog, tb_jog_profis.name_jog, tb_jog_profis.no_tel,
+    tb_jog_profis.ds_rank,
+    tb_contrato.*
+    FROM tb_contrato
+    LEFT JOIN tb_jog_profis ON tb_contrato.cd_jog = tb_jog_profis.cd_jog
+    INNER JOIN tb_cliente ON tb_contrato.cd_cli = tb_cliente.cd_cli
+    WHERE tb_contrato.cd_jog = :jogador_id";
     $state = $connect->prepare($sql);
     $state->bindParam(":jogador_id", $jogador_id);
+    $state->execute();
+    return $state->fetchAll(\PDO::FETCH_ASSOC);
+}
+
+function getContratosPendentes(\PDO $connect)
+{
+    $sql = "SELECT
+    tb_cliente.cd_cli, tb_cliente.name_cli, tb_cliente.ds_email, tb_cliente.no_tel, tb_jog_profis.cd_jog, tb_jog_profis.name_jog, tb_jog_profis.no_tel,
+    tb_jog_profis.ds_rank,
+    tb_contrato.*
+    FROM tb_contrato
+    LEFT JOIN tb_jog_profis ON tb_contrato.cd_jog = tb_jog_profis.cd_jog
+    INNER JOIN tb_cliente ON tb_contrato.cd_cli = tb_cliente.cd_cli
+    WHERE tb_contrato.ds_statusjog  = 'buscando'";
+    $state = $connect->prepare($sql);
     $state->execute();
     return $state->fetchAll(\PDO::FETCH_ASSOC);
 }
