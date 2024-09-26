@@ -1,14 +1,42 @@
 <?php
 namespace controllers\contratoController;
 
+// regras de negocio do status do usuario
+// solicitado = aguardando resposta do jogador selecionado
+// buscando = aguardando resposta de jogadores
+// recusado = contrato recusado pelo usuario
+// aceito = contrato aceito pelo usuario
 
-function createContrato(\PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio, string $data_fim)
+// regras de negocio do status do jogador
+// aceito = contrato aceito pelo jogador
+// recusado = contrato recusado pelo jogador
+// aguardando resposta = contrato aguardando resposta do jogador
+// buscando = aguardando resposta de jogadores
+
+// regras de negocio do status do contrato
+// pendente = contrato pendente de aceitação
+// ativo = contrato ativo
+// finalizado = contrato finalizado
+
+function createContrato(\PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio)
 {
     $sql = "INSERT INTO tb_contrato (cd_cli, cd_jog, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
-            VALUES (:usuario_id, :jogador_id, :servico_id, 'solicitado', 'aguardando resposta', 0.6, :data_inicio, 'pendente')";
+            VALUES (:usuario_id, :jogador_id, :servico_id, 'buscando', 'buscando', 0.6, :data_inicio, 'pendente')";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":jogador_id", $jogador_id);
+    $state->bindParam(":servico_id", $servico_id);
+    $state->bindParam(":data_inicio", $data_inicio);
+    $state->execute();
+    return $connect->lastInsertId();
+}
+
+function createContratoPendente(\PDO $connect, int $usuario_id, int $servico_id, string $data_inicio)
+{
+    $sql = "INSERT INTO tb_contrato (cd_cli, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
+            VALUES (:usuario_id, :servico_id, 'aguardando resposta', 'solicitado', 0.60, :data_inicio, 'pendente')";
+    $state = $connect->prepare($sql);
+    $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":servico_id", $servico_id);
     $state->bindParam(":data_inicio", $data_inicio);
     $state->execute();
