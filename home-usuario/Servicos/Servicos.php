@@ -1,10 +1,14 @@
 <?php
-use function Connection\connect_to_db_pdo;
-use function controllers\jogadorController\getJogadores;
-use function controllers\servicosController\getServicos;
-include("../../connection/connect.php");
-include("../../controllers/jogadorController/jogadorController.php");
-include("../../controllers/servicosController/servicosController.php");
+include_once("../../connection/session_secure.php");
+if (!isset($_SESSION['user_id'])) {
+	// Se não estiver logado, redireciona para a página de login
+	header('Location: ../../login/login.php');
+	exit();
+}
+if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
+	header("Location: ../../home-jogador/home.php");
+	exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,18 +21,7 @@ include("../../controllers/servicosController/servicosController.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <?php
-            include_once("../../connection/session_secure.php");
-        if (!isset($_SESSION['user_id'])) {
-            // Se não estiver logado, redireciona para a página de login
-            header('Location: ../../login/login.php');
-            exit();
-        }
-        if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
-            header("Location: ../../home-jogador/home.php");
-            exit();
-        }
-    ?>
+
     <div class="container">
           <header>
 			<nav class="header__nav">
@@ -80,21 +73,7 @@ include("../../controllers/servicosController/servicosController.php");
                     <a class="card__link" href="./NovoServico.php?tipo=Coach">Contratar</a>
                 </div> -->
                 <?php
-                    $connect = connect_to_db_pdo($server, $user, $password, $db);
-                    if (!$connect)
-                        throw new \PDOException("Connection failed");
-                    $servicos = getServicos($connect);
-                    if ($servicos) {
-                        foreach ($servicos as $servico) {
-                            echo "<div class='card'>";
-                            echo "<div class='card__description'>";
-                            echo "<h4 class='card__description__title'>" . $servico['nm_serv'] . "</h4>";
-                            echo "<p class='card__description__text'>" . $servico['ds_serv'] . "</p>";
-                            echo "</div>";
-                            echo "<a class='card__link' href='./NovoServico.php?tipo=" . $servico['nm_serv'] . "&id=" . $servico['cd_serv'] . "'>Contratar</a>";
-                            echo "</div>";
-                        }
-                    }
+                    include("./ServicosView.php");
                 ?>
 
             </div>
