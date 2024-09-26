@@ -6,7 +6,8 @@ namespace Connection;
 // informações para conexão no bd sebrae@123
 $server = "localhost:3306";
 $user = "root";
-$password = "sebrae@123";
+$password = "";
+// $password = "sebrae@123";
 $db = "db_anger";
 
 // funções criadas para conexão com o BD
