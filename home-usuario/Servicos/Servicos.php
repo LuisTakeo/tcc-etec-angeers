@@ -36,7 +36,7 @@ if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
 						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
-    <a href="perfil/index.php" >Perfil</a>
+    <a href="../Perfil/index.php" >Perfil</a>
     <a href="../logout.php">Sair</a>
   </div>
     </div>

@@ -61,38 +61,14 @@ use function controllers\contratoController\getContratosByUsuario;
                 ?>
             </h2>
 		</section>
+        <?php
+            include("./ContratosView.php");
+        ?>
         <section class="main__servicos">
             <div class="main__servicos__title">
                 <h3 >Serviços ativos</h3>
             </div>
-            <?php
-                include_once("../connection/connect.php");
-                include_once("../controllers/contratoController/contratoController.php");
-                try {
-                    $connect = connect_to_db_pdo($server, $user, $password, $db);
-                    $contratos = getContratosByUsuario($connect, $_SESSION['user_id']);
-                    if ($contratos) {
-                        echo "<div class='main__servicos__cards'>";
-                        foreach ($contratos as $contrato) {
-                            echo "<div class='card'>";
-                            echo "<div class='card__description'>";
-                            echo "<h4 class='card__description__title'>" .
-                                $contrato['cd_jog'] ."</h4>";
-                            echo "<p class='card__description__text'>Duo Boost - Em andamento</p>";
-                            echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
-                            echo "<p class='card_description_text'>Inicio-01/09/2024 </p>";
-                            echo "<a class='card__link' href='#'>Detalhes</a>";
-                            echo "</div>";
-                            echo "</div>";
-                        }
-                        echo "</div>";
-                    }
-                    $connect = null;
-                } catch (Exception $e) {
-                    echo "<h1>Erro ao buscar contratos!</h1>";
-                }
-            ?>
-            <div class="main__servicos__cards">
+            <!-- <div class="main__servicos__cards">
                 <div class="card">
                     <div class="card__description">
                         <h4 class="card__description__title">Jogador Prof A</h4>
@@ -120,7 +96,7 @@ use function controllers\contratoController\getContratosByUsuario;
                     </a>
                 </div>
 
-            </div>
+            </div> -->
             <div class="main__servicos__title">
                 <h3>Finalizado</h3>
             </div>
@@ -140,6 +116,7 @@ use function controllers\contratoController\getContratosByUsuario;
                     <a class="card__link" href="#">Detalhes</a>
                 </div>
             </div>
+        </section>
     </main>
 
     <footer id="final">

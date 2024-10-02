@@ -21,7 +21,7 @@ namespace controllers\contratoController;
 function createContrato(\PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio)
 {
     $sql = "INSERT INTO tb_contrato (cd_cli, cd_jog, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
-            VALUES (:usuario_id, :jogador_id, :servico_id, 'buscando', 'buscando', 0.6, :data_inicio, 'pendente')";
+            VALUES (:usuario_id, :jogador_id, :servico_id, 'aguardando', 'solicitado', 0.6, :data_inicio, 'pendente')";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":jogador_id", $jogador_id);
@@ -34,7 +34,7 @@ function createContrato(\PDO $connect, int $usuario_id, int $jogador_id, int $se
 function createContratoPendente(\PDO $connect, int $usuario_id, int $servico_id, string $data_inicio)
 {
     $sql = "INSERT INTO tb_contrato (cd_cli, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
-            VALUES (:usuario_id, :servico_id, 'aguardando resposta', 'solicitado', 0.60, :data_inicio, 'pendente')";
+            VALUES (:usuario_id, :servico_id, 'buscando', 'buscando', 0.60, :data_inicio, 'pendente')";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":servico_id", $servico_id);
@@ -71,10 +71,12 @@ function getContratosByUsuario(\PDO $connect, int $usuario_id)
     $sql = "SELECT
     tb_cliente.cd_cli, tb_cliente.name_cli, tb_cliente.ds_email, tb_cliente.no_tel, tb_jog_profis.cd_jog, tb_jog_profis.name_jog, tb_jog_profis.no_tel,
     tb_jog_profis.ds_rank,
+    tb_servico.*,
     tb_contrato.*
     FROM tb_contrato
     LEFT JOIN tb_jog_profis ON tb_contrato.cd_jog = tb_jog_profis.cd_jog
     INNER JOIN tb_cliente ON tb_contrato.cd_cli = tb_cliente.cd_cli
+    INNER JOIN tb_servico ON tb_contrato.cd_serv = tb_servico.cd_serv
     WHERE tb_contrato.cd_cli = :usuario_id";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
@@ -87,10 +89,12 @@ function getContratosByJogador(\PDO $connect, int $jogador_id)
     $sql = "SELECT
     tb_cliente.cd_cli, tb_cliente.name_cli, tb_cliente.ds_email, tb_cliente.no_tel, tb_jog_profis.cd_jog, tb_jog_profis.name_jog, tb_jog_profis.no_tel,
     tb_jog_profis.ds_rank,
+    tb_servico.*,
     tb_contrato.*
     FROM tb_contrato
     LEFT JOIN tb_jog_profis ON tb_contrato.cd_jog = tb_jog_profis.cd_jog
     INNER JOIN tb_cliente ON tb_contrato.cd_cli = tb_cliente.cd_cli
+    INNER JOIN tb_servico ON tb_contrato.cd_serv = tb_servico.cd_serv
     WHERE tb_contrato.cd_jog = :jogador_id";
     $state = $connect->prepare($sql);
     $state->bindParam(":jogador_id", $jogador_id);
