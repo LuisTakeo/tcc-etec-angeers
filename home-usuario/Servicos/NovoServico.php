@@ -16,7 +16,7 @@ include("../../controllers/jogadorController/jogadorController.php");
 </head>
 <body>
     <?php
-            include_once("../../connection/session_secure.php");
+        include_once("../../connection/session_secure.php");
         if (!isset($_SESSION['user_id'])) {
             // Se não estiver logado, redireciona para a página de login
             header('Location: ../../login/login.php');
@@ -26,18 +26,21 @@ include("../../controllers/jogadorController/jogadorController.php");
             header("Location: ../../home-jogador/home.php");
             exit();
         }
+        // $tipo_servico;
+        $id_servico;
         if (isset($_GET['tipo']))
             $tipo_servico = $_GET['tipo'];
-        if (isset($_POST['id']))
-            $id_servico = $_POST['id'];
+        if (isset($_GET['idservico']))
+            $id_servico = $_GET['idservico'];
+        // var_dump($id_servico);
     ?>
     <div class="container">
           <header>
 			<nav class="header__nav">
 				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="./home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="./Servicos/Servicos.php"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="./Ajuda/index.php"><h3>Ajuda</h3></a></li>
+					<li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
+					<li><a class="header__nav__link" href="./Servicos.php"><h3>Serviços</h3></a></li>
+					<li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
                     </ul>
 
                     <div class="dropdown">
@@ -45,8 +48,8 @@ include("../../controllers/jogadorController/jogadorController.php");
 						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
-    <a href="perfil/index.php" >Perfil</a>
-    <a href="logout.php">Sair</a>
+    <a href="../Perfil/index.php" >Perfil</a>
+    <a href="../logout.php">Sair</a>
   </div>
     </div>
 </div>
@@ -62,7 +65,7 @@ include("../../controllers/jogadorController/jogadorController.php");
                         <h4 class="card__description__title">Criar novo serviço de <?=$tipo_servico?></h4>
                         <p class="card__description__text"></p>
                     </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=EloJob">Contratar</a>
+                    <a class="card__link" href="./Contratar.php?tipo=<?=$tipo_servico?>&idServico=<?=$id_servico?>&escolherJogador=0">Contratar</a>
                 </div>
             </div>
         </section>
@@ -87,7 +90,7 @@ include("../../controllers/jogadorController/jogadorController.php");
                     echo "<h4 class='card__description__title'>" . $jogador['name_jog'] . ' - ' . $jogador['ds_email'] . "</h4>";
                     echo "<p class='card__description__text'>" . $jogador['ds_rank'] . "</p>";
                     echo "</div>";
-                    echo "<a class='card__link' href='#'>Detalhes</a>";
+                    echo "<a class='card__link' href='./Contratar.php?tipo=$tipo_servico&idServico=$id_servico&escolherJogador=1&idJogador=".$jogador['cd_jog']."'>Contratar</a>";
                     echo "</div>";
                 }
                 echo "</section>";

@@ -20,7 +20,7 @@ try
 			echo "<h4 class='card__description__title'>" . $servico['nm_serv'] . "</h4>";
 			echo "<p class='card__description__text'>" . $servico['ds_serv'] . "</p>";
 			echo "</div>";
-			echo "<a class='card__link' href='./NovoServico.php?tipo=" . $servico['nm_serv'] . "&id=" . $servico['cd_serv'] . "'>Contratar</a>";
+			echo "<a class='card__link' href='./NovoServico.php?tipo=" . $servico['nm_serv'] . "&idservico=" . $servico['cd_serv'] . "'>Contratar</a>";
 			echo "</div>";
 		}
 	}

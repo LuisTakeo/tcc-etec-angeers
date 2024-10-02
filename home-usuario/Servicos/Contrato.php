@@ -16,12 +16,12 @@ try
 {
     $connect = connect_to_db_pdo($server, $user, $password, $db);
     // $test = contratoController\createContrato($connect, $_SESSION['user_id'], 1, 1, date("Y-m-d"), date("Y-m-d", strtotime("+1 month")));
-    $test = contratoController\getContratosByJogador($connect, 1);
-    var_dump($test);
-    if ($test)
+    $arrContratos = contratoController\getContratosByJogador($connect, 1);
+    var_dump($arrContratos);
+    if ($arrContratos)
     {
         echo "<h1>Contratos encontrados!</h1>";
-        foreach ($test as $contrato)
+        foreach ($arrContratos as $contrato)
         {
             echo "<h2>Contrato: " . $contrato['cd_contrato'] . "</h2>";
             echo "<p>Jogador: " . $contrato['name_jog'] . "</p>";
