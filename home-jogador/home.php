@@ -53,6 +53,9 @@
                 ?>
             </h2>
 		</section>
+        <?php
+            include("./ContratosView.php");
+        ?>
         <section class="main__servicos">
             <div class="main__servicos__title">
                 <h3>Serviços ativos</h3>
