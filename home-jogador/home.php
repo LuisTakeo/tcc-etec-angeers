@@ -56,35 +56,6 @@
         <?php
             include("./ContratosView.php");
         ?>
-        <section class="main__servicos">
-            <div class="main__servicos__title">
-                <h3>Serviços ativos</h3>
-            </div>
-            <div class="main__servicos__cards">
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Jogador Prof A</h4>
-                        <p class="card__description__text">Duo Boost - Em andamento</p>
-                    </div>
-                    <a class="card__link" href="#">Detalhes</a>
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Jogador Prof B</h4>
-                        <p class="card__description__text">Coach - Finalizado</p>
-                    </div>
-                    <a class="card__link" href="#">Detalhes</a>
-                </div>
-                <div class="card center">
-                    <a href="./Servicos/Servicos.html" class="card__add__service">
-                        <img width="50" height="50" src="https://img.icons8.com/ios/50/add--v1.png" alt="add--v1"/>
-                        <p class="service_text">Adicionar</p>
-                    </a>
-                </div>
-
-            </div>
-            <!-- Add your profile information here -->
-        </section>
     </main>
 
     <footer id="final">
