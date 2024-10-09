@@ -164,11 +164,8 @@ section .card .image img{
   color: #6616d0;
 }
 
-.Banner{
-  background-color: #9370db;
-  width: 100%;
-  text-align: center;
-  color: white;
+.separação{
+
 }
 
 
@@ -176,7 +173,9 @@ section .card .image img{
 .box-container{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap:15px;
+  gap:30px;
+  width: 90%;
+  padding-left: 10%;
 }
 
 .box-container .box{
@@ -185,10 +184,11 @@ section .card .image img{
   background: #fff;
   text-align: center;
   padding:30px 20px;
+  
 }
 
 .box-container .box img{
-  height: 80px;
+  height: 160px;
 }
 
 .box-container .box h3{
