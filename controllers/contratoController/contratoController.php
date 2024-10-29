@@ -1,6 +1,12 @@
 <?php
 namespace controllers\contratoController;
 
+use models\Contrato;
+use repository\ContratoRepository;
+use services\ContratoService;
+use PDO;
+use PDOException;
+
 // regras de negocio do status do usuario
 // solicitado = aguardando resposta do jogador selecionado
 // buscando = aguardando resposta de jogadores
@@ -18,7 +24,207 @@ namespace controllers\contratoController;
 // ativo = contrato ativo
 // finalizado = contrato finalizado
 
-function createContrato(\PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio)
+
+class ContratoController
+{
+    private $db;
+    private $contratoService;
+
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+        $contratoRepository = new ContratoRepository($this->db);
+        $this->contratoService = new ContratoService($contratoRepository);
+    }
+
+    public function createContratoPendente($usuario_id, $servico_id, $data_inicio, $valor, $percentual)
+    {
+        try
+        {
+            $novoContrato = new Contrato(
+                NULL,
+                $usuario_id,
+                NULL,
+                $servico_id,
+                "buscando",
+                "buscando",
+                "pendente",
+                $valor,
+                $percentual,
+                $data_inicio,
+                NULL,
+                NULL,
+                NULL);
+            $lastId = $this->contratoService->createContrato($novoContrato);
+            echo $lastId;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function createContratoComJogador($usuario_id, $jogador_id, $servico_id, $data_inicio, $valor, $percentual)
+    {
+        try
+        {
+            // #TODO fazer ciclo para verificar se jogador não está na lista de restritos
+            $novoContrato = new Contrato(
+                NULL,
+                $usuario_id,
+                $jogador_id,
+                $servico_id,
+                "aguardando",
+                "solicitado",
+                "pendente",
+                $valor,
+                $percentual,
+                $data_inicio,
+                NULL,
+                NULL,
+                NULL);
+            $lastId = $this->contratoService->createContrato($novoContrato);
+            echo $lastId;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function updateContratoStatus(Contrato $contrato, $status_usuario, $status_jogador, $status_contrato, $motivo_recusa = null)
+    {
+        try
+        {
+            $contrato->setStatusCliente($status_usuario);
+            $contrato->setStatusJogador($status_jogador);
+            $contrato->setStatusContrato($status_contrato);
+            $contrato->setMotivoRecusa($motivo_recusa);
+            return $this->contratoService->updateContratoStatus($contrato);
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+            return NULL;
+        }
+    }
+
+    public function setContratoToAceito($contrato_id)
+    {
+        try
+        {
+            $contrato = $this->getContrato($contrato_id);
+            return $this->updateContratoStatus($contrato, "aceito", "aceito", "ativo");
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function setContratoToRecusado($contrato_id, $motivo_recusa)
+    {
+        try
+        {
+            $contrato = $this->getContrato($contrato_id);
+            if (!$contrato)
+                throw new PDOException("Contrato não encontrado");
+            return $this->updateContratoStatus($contrato, "recusado", "recusado", "finalizado", $motivo_recusa);
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function setContratoToFinalizado($contrato_id)
+    {
+        try
+        {
+            $contrato = $this->getContrato($contrato_id);
+            if (!$contrato)
+                throw new PDOException("Contrato não encontrado");
+            if ($contrato->getStatusContrato() != "ativo")
+                throw new PDOException("Contrato não ativo");
+            return $this->updateContratoStatus($contrato, "aceito", "aceito", "finalizado");
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function setAvaliacaoContrato($contrato_id, $avaliacao, $notaAvaliacao)
+    {
+        try
+        {
+            $contrato = $this->getContrato($contrato_id);
+            if (!$contrato)
+                throw new PDOException("Contrato não encontrado");
+            if ($contrato->getStatusContrato() != "finalizado")
+                throw new PDOException("Contrato não finalizado");
+            $contrato->setAvaliacao($avaliacao);
+            $contrato->setNotaAvaliacao($notaAvaliacao);
+            return $this->contratoService->updateContrato($contrato);
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    function getContrato($contrato_id)
+    {
+        try
+        {
+            $contrato = $this->contratoService->getContratoById($contrato_id);
+            return $contrato;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+            return NULL;
+        }
+    }
+
+    function getContratosByUsuario($usuario_id)
+    {
+        try
+        {
+            $contratos = $this->contratoService->getContratoByClienteId($usuario_id);
+            return $contratos;
+        } catch (PDOException $err)
+        {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+    function getContratosByJogador($jogador_id)
+    {
+        try
+        {
+            $contratos = $this->contratoService->getContratoByJogadorId($jogador_id);
+            return $contratos;
+        } catch (PDOException $err)
+        {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+    function filterContratosPendentesByUsuario($usuario_id)
+    {
+        try
+        {
+            $contratos = $this->getContratosByUsuario($usuario_id);
+            if (empty($contratos))
+                throw new PDOException("Nenhum contrato encontrado");
+            $contratosFiltered = array_filter($contratos, function ($contrato)
+            {
+                return $contrato["contrato"]["statusContrato"] == "pendente";
+            });
+            $contratosFiltered = array_values($contratosFiltered);
+            return $contratosFiltered;
+        } catch (PDOException $err)
+        {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+}
+
+function createContrato(PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio)
 {
     $sql = "INSERT INTO tb_contrato (cd_cli, cd_jog, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
             VALUES (:usuario_id, :jogador_id, :servico_id, 'aguardando', 'solicitado', 0.6, :data_inicio, 'pendente')";
@@ -72,7 +278,7 @@ function updateContratoStatusPendente(\PDO $connect, int $contrato_id, int $id_j
     $state->execute();
 }
 
-function getContrato(\PDO $connect, int $id)
+function getContrato(PDO $connect, int $id)
 {
     $sql = "SELECT * FROM tb_contrato WHERE cd_contrato = :id";
     $state = $connect->prepare($sql);
@@ -80,7 +286,7 @@ function getContrato(\PDO $connect, int $id)
     $state->execute();
     $result = $state->fetch(\PDO::FETCH_ASSOC);
     if (!$result)
-        throw new \PDOException("Nenhum contrato encontrado");
+        throw new PDOException("Nenhum contrato encontrado");
     return $result;
 }
 

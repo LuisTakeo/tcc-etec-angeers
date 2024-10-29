@@ -1,7 +1,89 @@
 <?php
 namespace controllers\usuarioController;
 
+use models\Usuario;
+use PDO;
+use repository\UsuarioRepository;
+use services\UsuarioService;
 
+// include "../../repository/UsuarioRepository.php";
+
+class UsuarioController
+{
+    private $db;
+    private $usuarioService;
+
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+        $usuarioRepository = new UsuarioRepository($this->db);
+        $this->usuarioService = new UsuarioService($usuarioRepository);
+    }
+
+    public function create($new_client)
+    {
+        try {
+            $message = $this->usuarioService->createUsuario($new_client);
+            echo $message;
+        } catch (\PDOException $err) {
+            echo $err->getMessage();
+        }
+    }
+
+    public function getClienteByIdToApi($id)
+    {
+        try {
+            $cliente = $this->usuarioService->getClienteById($id);
+            echo json_encode($cliente);
+        } catch (\PDOException $err) {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getClienteByEmailToApi($email)
+    {
+        try {
+            $cliente = $this->usuarioService->getClienteByEmail($email);
+            echo json_encode($cliente->toArray());
+
+        } catch (\PDOException $err) {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getClientes()
+    {
+        try
+        {
+            $clientes = $this->usuarioService->getClientes();
+            http_response_code(200);
+            echo json_encode(["clientes" => array_map(function ($cliente) {
+                return $cliente->toArray();
+            }, $clientes), "total" => count($clientes), "status" => "success"], JSON_UNESCAPED_UNICODE);
+        } catch (\PDOException $err)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function loginToApi($email, $senha)
+    {
+        try
+        {
+            $cliente = $this->usuarioService->loginClient($email, $senha);
+            http_response_code(200);
+            echo json_encode(["cliente" => $cliente->toArray(), "status" => "success"], JSON_UNESCAPED_UNICODE);
+        } catch (\PDOException $err)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => "Usuario ou senha inválidos", "status" => "error"], JSON_UNESCAPED_UNICODE);
+        }
+    }
+}
+
+
+// functions
 function cadastrarCliente(\PDO $connect, array $new_client)
 {
     try

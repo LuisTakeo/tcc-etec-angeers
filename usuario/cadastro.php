@@ -40,7 +40,7 @@ try
         "cpf" => $cpf,
         "cliente_ativo" => true,
         "data_inclusao" => $timestamp,
-        "data_exclusao" => $timestamp
+        "data_exclusao" => $timestamp // TODO alterar para null
     ];
     var_dump($new_client);
     cadastrarCliente($connect, $new_client);

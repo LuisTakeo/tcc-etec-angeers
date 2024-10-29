@@ -2,14 +2,108 @@
 namespace controllers\jogadorController;
 
 
-function cadastrarJogador(\PDO $connect, array $new_jogador)
+use models\Jogador;
+use repository\JogadorRepository;
+use services\JogadorService;
+use PDO;
+use PDOException;
+
+class JogadorController
+{
+    private $db;
+    private $jogadorService;
+
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+        $jogadorRepository = new JogadorRepository($this->db);
+        $this->jogadorService = new JogadorService($jogadorRepository);
+    }
+
+    public function create($new_jogador)
+    {
+        try
+        {
+            $message = $this->jogadorService->createJogador($new_jogador);
+            echo $message;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+
+    public function getJogadorByIdToApi($id)
+    {
+        try
+        {
+            $jogador = $this->jogadorService->getJogadorById($id);
+            echo json_encode($jogador, JSON_UNESCAPED_UNICODE);
+        } catch (PDOException $err)
+        {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getJogadorByEmailToApi($email)
+    {
+        try
+        {
+            $jogador = $this->jogadorService->getJogadorByEmail($email);
+            echo json_encode($jogador->toArray(), JSON_UNESCAPED_UNICODE);
+
+        } catch (PDOException $err)
+        {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getJogadores()
+    {
+        try
+        {
+            $jogadores = $this->jogadorService->getJogadores();
+            http_response_code(200);
+            echo json_encode(["jogadores" => array_map(function ($jogador)
+            {
+                return $jogador->toArray();
+            }, $jogadores), "total" => count($jogadores), "status" => "success"], JSON_UNESCAPED_UNICODE);
+        } catch (PDOException $err)
+        {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function loginToApi($email, $senha)
+    {
+
+        $jogador = $this->jogadorService->loginJogador($email, $senha);
+        http_response_code(200);
+        echo json_encode(["jogador" => $jogador->toArray(), "status" => "success"], JSON_UNESCAPED_UNICODE);
+
+    }
+
+    public function login($email, $senha)
+    {
+        try
+        {
+            $jogador = $this->jogadorService->loginJogador($email, $senha);
+            return $jogador;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+    }
+}
+
+// funções de jogador
+function cadastrarJogador(PDO $connect, array $new_jogador)
 {
     try
     {
         echo "Cadastrando jogador...<br>";
         $connect->beginTransaction(); // proteção para rollback
         if (!$new_jogador)
-            throw new \PDOException("Empty array");
+            throw new PDOException("Empty array");
         $sql = "INSERT INTO tb_jog_profis
             (name_jog, ds_senha, no_tel, ds_email, no_cpf, jogador_ativo, data_inclusao,
             data_exclusao, ds_rank)
@@ -28,17 +122,17 @@ function cadastrarJogador(\PDO $connect, array $new_jogador)
         $state->execute();
         $connect->commit(); // confirma a transação
         echo "New record created successfully";
-    } catch (\PDOException $err)
+    } catch (PDOException $err)
     {
         $connect->rollBack(); // desfaz a transação em caso de erro
         if ($err->getCode() == 23000)
-            throw new \PDOException("Jogador já cadastrado com este CPF ou e-mail");
+            throw new PDOException("Jogador já cadastrado com este CPF ou e-mail");
         else
-            throw new \PDOException("Error: " . $err->getMessage());
+            throw new PDOException("Error: " . $err->getMessage());
     }
 }
 
-function getJogador(\PDO $connect, int $id)
+function getJogador(PDO $connect, int $id)
 {
     try
     {
@@ -46,17 +140,17 @@ function getJogador(\PDO $connect, int $id)
         $state = $connect->prepare($sql);
         $state->bindParam(':id', $id);
         $state->execute();
-        $result = $state->fetch(\PDO::FETCH_ASSOC);
+        $result = $state->fetch(PDO::FETCH_ASSOC);
         if (!$result)
-            throw new \PDOException("Jogador não encontrado");
+            throw new PDOException("Jogador não encontrado");
         return $result;
-    } catch (\PDOException $err)
+    } catch (PDOException $err)
     {
         echo "Error: " . $err->getMessage();
     }
 }
 
-function getJogadorByEmail(\PDO $connect, string $email)
+function getJogadorByEmail(PDO $connect, string $email)
 {
     try
     {
@@ -65,14 +159,14 @@ function getJogadorByEmail(\PDO $connect, string $email)
         $state->bindParam(':email', $email);
         $state->execute();
         if ($state->rowCount() == 0)
-            throw new \PDOException("Jogador não encontrado");
+            throw new PDOException("Jogador não encontrado");
         $result = $state->fetch(\PDO::FETCH_ASSOC);
         if (!$result)
-            throw new \PDOException("Jogador não encontrado");
+            throw new PDOException("Jogador não encontrado");
         return $result;
-    } catch (\PDOException $err)
+    } catch (PDOException $err)
     {
-        throw new \PDOException("Error: " . $err->getMessage());
+        throw new PDOException("Error: " . $err->getMessage());
 
     }
 }
@@ -86,9 +180,9 @@ function getJogadores(\PDO $connect)
         $state->execute();
         $result = $state->fetchAll(\PDO::FETCH_ASSOC);
         if (!$result)
-            throw new \PDOException("Nenhum jogador encontrado");
+            throw new PDOException("Nenhum jogador encontrado");
         return $result;
-    } catch (\PDOException $err)
+    } catch (PDOException $err)
     {
         echo "Error: " . $err->getMessage();
         return null;
