@@ -115,5 +115,6 @@
         </div>
     </footer> -->
     <!-- FIM FOOTER -->
+    <script src="./jogador-script.js"></script>
 </body>
 </html>
