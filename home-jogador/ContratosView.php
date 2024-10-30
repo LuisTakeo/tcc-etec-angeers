@@ -38,6 +38,7 @@ function showContratosPendentes(array $contratos)
         $contratos_pendentes = array_filter($contratos, function($contrato) {
             return $contrato['ds_statuscontrato'] == 'pendente';
         });
+        // var_dump($contratos_pendentes);
         foreach ($contratos_pendentes as $contrato)
         {
             if ($contrato['ds_statuscli'] != 'buscando')
@@ -134,15 +135,16 @@ try {
     // var_dump($contratosdoJogador);
     // var_dump($contratosPendentes);
 
+    if ($contratosPendentes)
+        showContratosPendentes($contratosPendentes);
     if ($contratosdoJogador)
     {
         showContratosSolicitadoCliente($contratosdoJogador);
-        showContratosPendentes($contratosPendentes);
         showContratosAtivos($contratosdoJogador);
         // showContratosFinalizados($contratos);
-    } else {
-        echo "<h1>Nenhum contrato encontrado!</h1>";
     }
+    if (!$contratosdoJogador && !$contratosPendentes)
+        echo "<h1>Nenhum contrato encontrado!</h1>";
     $connect = null;
 } catch (Exception $e) {
     echo "<h1>Erro ao buscar contratos!</h1>";

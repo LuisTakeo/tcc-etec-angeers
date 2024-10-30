@@ -1,14 +1,18 @@
 <?php
+
+use controllers\jogadorController\JogadorController;
+use models\Jogador;
+
 use function Connection\connect_to_db_pdo;
 use function controllers\jogadorController\cadastrarJogador;
 
-include("../connection/connect.php");
-include("../controllers/jogadorController/jogadorController.php");
+include("./includes.php");
 // inserir comandos acima para importar as funções necessárias
 // como o arquivo de conexão e o arquivo de controller
 
 try
 {
+    // Conectando ao banco de dados
     $connect = connect_to_db_pdo($server, $user, $password, $db);
     if (!$connect)
         throw new \PDOException("Connection failed");
@@ -32,19 +36,35 @@ try
     $timestamp = $date->format('Y-m-d H:i:s');
     // echo $timestamp;
 
-    $new_jogador = [
-        "name" => $name,
-        "senha" => password_hash($password, PASSWORD_DEFAULT),
-        "tel" => $phone,
-        "email" => $email,
-        "cpf" => $cpf,
-        "rank" => $rank,
-        "jogador_ativo" => true,
-        "data_inclusao" => $timestamp,
-        "data_exclusao" => $timestamp
-    ];
-    var_dump($new_jogador);
-    cadastrarJogador($connect, $new_jogador);
+    // Instanciando o controller do jogador
+    $jogadorController = new JogadorController($connect);
+
+    // Criando um novo jogador
+
+    $jogadorNovo = new Jogador(
+        NULL,
+        $name,
+        password_hash($password, PASSWORD_DEFAULT),
+        $phone,
+        $email,
+        $cpf, true, $timestamp, $timestamp, $rank);
+
+    // Cadastrando o jogador
+    $jogadorController->create($jogadorNovo);
+
+    // $new_jogador = [
+    //     "name" => $name,
+    //     "senha" => password_hash($password, PASSWORD_DEFAULT),
+    //     "tel" => $phone,
+    //     "email" => $email,
+    //     "cpf" => $cpf,
+    //     "rank" => $rank,
+    //     "jogador_ativo" => true,
+    //     "data_inclusao" => $timestamp,
+    //     "data_exclusao" => $timestamp
+    // ];
+    // var_dump($new_jogador);
+    // cadastrarJogador($connect, $new_jogador);
     // usar password_hash para criptografar a senha e password_verify para verificar a senha
     // password_hash cria um hash de senha usando um algoritmo de hash forte e irreversível
     // password_verify verifica se a senha corresponde ao hash

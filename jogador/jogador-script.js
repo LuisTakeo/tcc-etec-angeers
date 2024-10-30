@@ -1,5 +1,6 @@
-console.log("Hello");
+// console.log("Hello");
 
+// constantes para os campos do formulário
 const nameField = document.getElementById("nome");
 const emailField = document.getElementById("email");
 const telefoneField = document.getElementById("telefone");
@@ -8,25 +9,16 @@ const senhaField = document.getElementById("senha");
 const confirmSenhaField = document.getElementById("Confirmarsenha");
 const rankField = document.getElementById("elo");
 const msgError = document.getElementById("msg-error");
-
-console.log(nameField);
-console.log(emailField);
-console.log(telefoneField);
-console.log(cpfField);
-console.log(rankField);
-console.log(senhaField);
-console.log(confirmSenhaField);
-console.log(msgError);
-
-rankField.addEventListener("change", (event) => {
-  console.log(event.target.value);
-  console.log(rankField.value);
-});
-
 const form = document.getElementById("form");
 
-console.log(form);
+rankField.addEventListener("change", (event) => {
+  // console.log(event.target.value);
+  // console.log(rankField.value);
+});
 
+// FUNÇÕES
+
+// função para validar se o campo possui letras minusculas
 function hasMinLetters(text) {
   let i = 0;
   while (text[i]) {
@@ -36,6 +28,7 @@ function hasMinLetters(text) {
   return false;
 }
 
+// função para validar se o campo possui letras maiusculas
 function hasMaxLetters(text) {
   let i = 0;
   while (text[i]) {
@@ -45,6 +38,7 @@ function hasMaxLetters(text) {
   return false;
 }
 
+// função para validar se o campo possui digitos
 function hasDigits(text) {
   let i = 0;
   while (text[i]) {
@@ -54,6 +48,11 @@ function hasDigits(text) {
   return false;
 }
 
+// função para validar a senha
+// a senha deve ter no mínimo 12 caracteres
+// a senha deve ter no mínimo uma letra minuscula
+// a senha deve ter no mínimo uma letra maiuscula
+// a senha deve ter no mínimo um digito
 function validatePassword(password) {
   if (password.length < 12) {
     console.log("Insira uma senha maior");
@@ -74,8 +73,12 @@ function validatePassword(password) {
 
 // console.log(validatePassword("123123aaaaaaABCaaaaa"))
 
-senhaField.textContent;
+// LISTENERS
 
+// listerner para o evento de submit do formulário
+// o evento é capturado e é feito uma verificação se as senhas são iguais
+// a qual chama a função de validação da senha
+// se a senha for válida o formulário é submetido
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (senhaField.value !== confirmSenhaField.value) {
