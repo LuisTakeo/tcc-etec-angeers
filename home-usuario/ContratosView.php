@@ -44,7 +44,9 @@ function showContratosPendentes(array $contratos)
             echo "<p class='card_description_text'>Inicio-" .
             DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
             " </p>";
-            echo "<a class='card__link' href='#'>Detalhes</a>";
+            echo "<a class='card__link' href='./getDetalhes?id="
+                    .   $contrato['cd_contrato']
+                    .   "'>Detalhes</a>";
             echo "</div>";
             echo "</div>";
         }
@@ -79,7 +81,9 @@ function showContratosAtivos(array $contratos)
                 echo "<p class='card_description_text'>Inicio-" .
                 DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
                 " </p>";
-                echo "<a class='card__link' href='#'>Detalhes</a>";
+                echo "<a class='card__link' href='./getDetalhes?id="
+                    .   $contrato['cd_contrato']
+                    .   "'>Detalhes</a>";
                 echo "</div>";
                 echo "</div>";
             }
@@ -114,7 +118,9 @@ function showContratosFinalizados(array $contratos)
                 echo "<p class='card_description_text'>Inicio-" .
                 DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
                 " </p>";
-                echo "<a class='card__link' href='#'>Detalhes</a>";
+                echo "<a class='card__link' href='./getDetalhes?id="
+                    .   $contrato['cd_contrato']
+                    .   "'>Detalhes</a>";
                 echo "</div>";
                 echo "</div>";
             }

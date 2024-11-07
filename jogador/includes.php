@@ -8,3 +8,4 @@ include("../repository/jogadorRepository.php");
 include("../services/JogadorService.php");
 
 include("../controllers/jogadorController/jogadorController.php");
+include("../controllers/usuarioController/usuarioController.php");

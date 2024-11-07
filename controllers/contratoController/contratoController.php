@@ -224,27 +224,29 @@ class ContratoController
 
 }
 
-function createContrato(PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio)
+function createContrato(PDO $connect, int $usuario_id, int $jogador_id, int $servico_id, string $data_inicio, float $valor)
 {
-    $sql = "INSERT INTO tb_contrato (cd_cli, cd_jog, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
-            VALUES (:usuario_id, :jogador_id, :servico_id, 'aguardando', 'solicitado', 0.6, :data_inicio, 'pendente')";
+    $sql = "INSERT INTO tb_contrato (cd_cli, cd_jog, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato, vl_valor)
+            VALUES (:usuario_id, :jogador_id, :servico_id, 'aguardando', 'solicitado', 0.6, :data_inicio, 'pendente', :valor)";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":jogador_id", $jogador_id);
     $state->bindParam(":servico_id", $servico_id);
     $state->bindParam(":data_inicio", $data_inicio);
+    $state->bindParam(":valor", $valor);
     $state->execute();
     return $connect->lastInsertId();
 }
 
-function createContratoPendente(\PDO $connect, int $usuario_id, int $servico_id, string $data_inicio)
+function createContratoPendente(\PDO $connect, int $usuario_id, int $servico_id, string $data_inicio, float $valor)
 {
-    $sql = "INSERT INTO tb_contrato (cd_cli, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato)
-            VALUES (:usuario_id, :servico_id, 'buscando', 'buscando', 0.60, :data_inicio, 'pendente')";
+    $sql = "INSERT INTO tb_contrato (cd_cli, cd_serv, ds_statusjog, ds_statuscli, perc_jog, ds_data, ds_statuscontrato, vl_valor)
+            VALUES (:usuario_id, :servico_id, 'buscando', 'buscando', 0.60, :data_inicio, 'pendente', :valor)";
     $state = $connect->prepare($sql);
     $state->bindParam(":usuario_id", $usuario_id);
     $state->bindParam(":servico_id", $servico_id);
     $state->bindParam(":data_inicio", $data_inicio);
+    $state->bindParam(":valor", $valor);
     $state->execute();
     return $connect->lastInsertId();
 }

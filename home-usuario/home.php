@@ -25,33 +25,30 @@ use function controllers\contratoController\getContratosByUsuario;
         }
     ?>
     <div class="container">
-          <header>
-			<nav class="header__nav">
-				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="./home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="./Servicos/Servicos.php"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="./Ajuda/index.php"><h3>Ajuda</h3></a></li>
-                    </ul>
+        <header>
+            <nav class="header__nav">
+                <ul class="header__nav__list">
+                    <li><a class="header__nav__link" href="./home.php"><h3>Home</h3></a></li>
+                    <li><a class="header__nav__link" href="./Servicos/Servicos.php"><h3>Serviços</h3></a></li>
+                    <li><a class="header__nav__link" href="./Ajuda/index.php"><h3>Ajuda</h3></a></li>
+                </ul>
 
-                    <div class="dropdown">
-  <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
-					</a></button>
-  <div class="dropdown-content">
-    <a href="perfil/index.php" >Perfil</a>
-    <a href="logout.php">Sair</a>
-  </div>
-    </div>
-</div>
+                <div class="dropdown">
+                    <button class="dropbtn"><a class="header__nav__link perfil" href="#">
+                    <img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/>
+                    <?php echo $_SESSION['user_name']; ?></a></button>
 
-</body>
-</html>
+                    <div class="dropdown-content">
+                        <a href="perfil/index.php" >Perfil</a>
+                        <a href="logout.php">Sair</a>
+                    </div>
+                </div>
 
-			</nav>
+
+            </nav>
 
         </header>
     </div>
-
     <main class="container main">
 		<section class="main__perfil">
 			<h2 class="main__perfil__title">
@@ -64,39 +61,10 @@ use function controllers\contratoController\getContratosByUsuario;
         <?php
             include("./ContratosView.php");
         ?>
-        <section class="main__servicos">
+        <!-- <section class="main__servicos">
             <div class="main__servicos__title">
                 <h3 >Serviços ativos</h3>
             </div>
-            <!-- <div class="main__servicos__cards">
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Jogador Prof A</h4>
-                        <p class="card__description__text">Duo Boost - Em andamento</p>
-                        <img width="50" height="50" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="add--v1"/>
-                        <p class="card_description_text">Inicio-01/09/2024 </p>
-                        <a class="card__link" href="#">Detalhes</a>
-                    </div>
-
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Jogador Prof B</h4>
-                        <p class="card__description__text">Coach - Em andamento </p>
-                        <img width="50" height="50" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="add--v1"/>
-                        <p class="card_description_text">Inicio-09/09/2024 </p>
-                        <a class="card__link" href="#">Detalhes</a>
-                    </div>
-
-                </div>
-                <div class="card center">
-                    <a href="./Servicos/Servicos.html" class="card__add__service">
-                        <img width="50" height="50" src="https://img.icons8.com/ios/50/add--v1.png" alt="add--v1"/>
-                        <p class="service_text">Adicionar</p>
-                    </a>
-                </div>
-
-            </div> -->
             <div class="main__servicos__title">
                 <h3>Finalizado</h3>
             </div>
@@ -116,7 +84,7 @@ use function controllers\contratoController\getContratosByUsuario;
                     <a class="card__link" href="#">Detalhes</a>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <footer id="final">
@@ -139,6 +107,7 @@ use function controllers\contratoController\getContratosByUsuario;
                 </ul>
             </div>
         </div>
+    </footer>
         <script>
             const list = document.querySelector('.header__box__options');
             const perfilLink = document.querySelector('.perfil');

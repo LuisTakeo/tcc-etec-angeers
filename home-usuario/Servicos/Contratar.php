@@ -40,9 +40,9 @@ try
     echo "<br>";
     echo "<br>";
     if (!$escolher_jogador)
-        $idContrato = createContratoPendente($connect, $_SESSION['user_id'], $id_servico, date("Y-m-d"), date("Y-m-d", strtotime("+1 month")));
+        $idContrato = createContratoPendente($connect, $_SESSION['user_id'], $id_servico, date("Y-m-d"), 20.00);
     else
-        $idContrato = createContrato($connect, $_SESSION['user_id'], $id_jogador, $id_servico, date("Y-m-d"), date("Y-m-d", strtotime("+1 month")));
+        $idContrato = createContrato($connect, $_SESSION['user_id'], $id_jogador, $id_servico, date("Y-m-d"), 20.00);
     echo "Criado com sucesso: " . $idContrato;
     header("Location: ../../home-usuario/home.php");
     // if ($test) {

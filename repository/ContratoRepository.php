@@ -73,6 +73,10 @@ class ContratoRepository
         $state = $this->db->prepare($sql);
         $state->bindParam(":id", $id);
         $state->execute();
+        if ($state->rowCount() == 0)
+        {
+            throw new \PDOException("Contrato não encontrado");
+        }
         return $this->mapToContrato($state->fetch());
     }
 

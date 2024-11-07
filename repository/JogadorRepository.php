@@ -70,7 +70,7 @@ class JogadorRepository
 
     public function getJogador($id)
     {
-        $sql = "SELECT * FROM tb_jog_profis WHERE id_jogador = :id";
+        $sql = "SELECT * FROM tb_jog_profis WHERE cd_jog = :id";
         $state = $this->db->prepare($sql);
         $state->bindParam(':id', $id);
         $state->execute();

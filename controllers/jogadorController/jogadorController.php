@@ -32,6 +32,19 @@ class JogadorController
         }
     }
 
+    public function getJogadorById($id)
+    {
+        try
+        {
+            $jogador = $this->jogadorService->getJogadorById($id);
+            return $jogador;
+        }
+        catch (PDOException $err)
+        {
+            throw new PDOException("Jogador não encontrado");
+        }
+    }
+
     public function getJogadorByIdToApi($id)
     {
         try

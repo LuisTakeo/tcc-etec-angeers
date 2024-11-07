@@ -30,6 +30,16 @@ class UsuarioController
         }
     }
 
+    public function getClienteById($id)
+    {
+        try {
+            $cliente = $this->usuarioService->getClienteById($id);
+            return $cliente;
+        } catch (\PDOException $err) {
+            throw new \PDOException($err->getMessage());
+        }
+    }
+
     public function getClienteByIdToApi($id)
     {
         try {

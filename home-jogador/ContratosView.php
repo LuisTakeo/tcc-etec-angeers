@@ -115,6 +115,35 @@ function showContratosAtivos(array $contratos)
     echo "</div>
         </section>";
 }
+
+
+function showContratosFinalizados(array $contratos)
+{
+    echo "<section class='main__servicos'>
+    <div class='main__servicos__title'>
+            <h3>Serviços Finalizados</h3>
+    </div>
+    <div class='main__servicos__cards'>";
+    $contratos_finalizados = array_filter($contratos, function($contrato) {
+        return $contrato['ds_statuscontrato'] == 'finalizado';
+    });
+    if (empty($contratos_finalizados))
+        echo "<h3>Nenhum contrato finalizado!</h3>";
+    foreach ($contratos_finalizados as $contrato)
+    {
+        echo "<div class='card'>";
+        echo "<div class='card__description'>";
+        echo "<h4 class='card__description__title'>" .
+            ($contrato['name_cli']) ."</h4>";
+        echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscontrato']) . "</p>";
+        echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+        echo "<p class='card_description_text'>Inicio-" . DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  . " </p>";
+        echo "<a class='card__link' href='#'>Detalhes</a>";
+        echo "</div>";
+        echo "</div>";
+    }
+}
+
 // MAIN
 
 
@@ -141,7 +170,7 @@ try {
     {
         showContratosSolicitadoCliente($contratosdoJogador);
         showContratosAtivos($contratosdoJogador);
-        // showContratosFinalizados($contratos);
+        showContratosFinalizados($contratosdoJogador);
     }
     if (!$contratosdoJogador && !$contratosPendentes)
         echo "<h1>Nenhum contrato encontrado!</h1>";
