@@ -3,6 +3,7 @@ namespace services;
 
 use repository\UsuarioRepository;
 use models\Usuario;
+use models\Restricao;
 
 class UsuarioService
 {
@@ -53,5 +54,26 @@ class UsuarioService
         if ($cliente && password_verify($senha, $cliente->getSenha()))
             return $cliente;
         throw new \PDOException("Email ou senha inválidos");
+    }
+
+    public function createRestricao($id_cliente, $id_jogador)
+    {
+        try
+        {
+            // verificar primeiro se já existe a restricao
+            $restricao = $this->usuarioRepository->getRestricaoUsuario($id_cliente);
+            if ($restricao && array_search($id_jogador, $restricao->getIdJogador()))
+                throw new \PDOException("Jogador já restrito");
+            $restricao = new Restricao(null, $id_cliente, $id_jogador, null);
+            $this->usuarioRepository->beginTransaction();
+            $this->usuarioRepository->createRestricao($restricao);
+            $this->usuarioRepository->commit();
+            return "Restrição criada com sucesso";
+        }
+        catch (\PDOException $err)
+        {
+            $this->usuarioRepository->rollBack();
+            throw new \PDOException($err->getMessage());
+        }
     }
 }

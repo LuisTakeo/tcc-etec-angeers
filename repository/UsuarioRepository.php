@@ -2,6 +2,7 @@
 namespace repository;
 
 use models\Usuario;
+use models\Restricao;
 
 use function PHPSTORM_META\map;
 
@@ -121,5 +122,41 @@ class UsuarioRepository
             $data['data_inclusao'],
             $data['data_exclusao']
         );
+    }
+
+    private function mapToRestricao($data)
+    {
+        if (!$data) {
+            return null;
+        }
+        return new Restricao(
+            $data['cd_rest'],
+            $data['cd_cli'],
+            $data['cd_jog'],
+            $data['dt_rest']
+        );
+    }
+
+    public function getRestricaoUsuario($id)
+    {
+        $sql = "SELECT * FROM restricao WHERE cd_cli = :cd_cli";
+        $state = $this->db->prepare($sql);
+        $state->bindParam(':cd_cli', $id);
+        $state->execute();
+        $result = $state->fetch(\PDO::FETCH_ASSOC);
+        if (!$result)
+            throw new \PDOException("Restrição não encontrada");
+        return $this->mapToRestricao($result);
+    }
+
+    public function createRestricao(Restricao $restricao)
+    {
+        $sql = "INSERT INTO restricao (cd_cli, cd_jog, dt_rest) VALUES (:cd_cli, :cd_jog, :dt_rest)";
+        $state = $this->db->prepare($sql);
+        $array_restricao = $restricao->toArray();
+        $state->bindParam(':cd_cli', $array_restricao["idCliente"]);
+        $state->bindParam(':cd_jog', $array_restricao["idJogador"]);
+        $state->bindParam(':dt_rest', $array_restricao["dataRestricao"]);
+        $state->execute();
     }
 }
