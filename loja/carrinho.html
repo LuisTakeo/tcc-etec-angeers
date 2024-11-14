@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="assets/css/carrinho.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+ 
+    <main>
+   <br>
+  
+      <div class="content">
+        <section>
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="product">
+                    <img src="Caderno.png" alt="" style="width: 100px; height: 100px;"/>
+                    <div class="info">
+                      <div class="name">Caderno Anger
+                      </div>
+                      <div class="category">Material Escolar</div>
+                    </div>
+                  </div>
+                </td>
+                <td><strong>R$19,99</strong></td>
+                <td>
+                  <div class="qty">
+                    <button><i class="bx bx-minus"></i></button>
+                    <span>2</span>
+                    <button><i class="bx bx-plus"></i></button>
+                  </div>
+                </td>
+                <td>R$39,99</td>
+                <td>
+                  <button class="remove"><i class="bx bx-x"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="product">
+                    <img src="assets/images/Chaveiro-Reyna.jpg" alt="" style="width: 100px; height: 100px;" />
+                    <div class="info">
+                      <div class="name">Chaveiro Personalizado</div>
+                      <div class="category">Chaveiro</div>
+                    </div>
+                  </div>
+                </td>
+                <td>-<strong>R$9,99</strong></td>
+                <td>
+                  <div class="qty">
+                    <button><i class="bx bx-minus"></i></button>
+                    <span>2</span>
+                    <button><i class="bx bx-plus"></i></button>
+                  </div>
+                </td>
+                <td>R$19,99</td>
+                <td>
+                  <button class="remove"><i class="bx bx-x"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="product">
+                    <img src="camiseta-ang.jpg" alt="" style="width: 100px; height: 100px;"/>
+                    <div class="info">
+                      <div class="name">Camiseta Personalizada</div>
+                      <div class="category">Roupas</div>
+                    </div>
+                  </div>
+                </td>
+                <td><strong>R$39,99</strong></td>
+                <td>
+                  <div class="qty">
+                    <button><i class="bx bx-minus"></i></button>
+                    <span>2</span>
+                    <button><i class="bx bx-plus"></i></button>
+                  </div>
+                </td>
+                <td>R$79,99</td>
+                <td>
+                  <button class="remove"><i class="bx bx-x"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <aside>
+          <div class="box">
+            <header>Resumo da compra</header>
+            <div class="info">
+              <div><span>Sub-total</span><span>R$ 418</span></div>
+              <div><span>Frete</span><span>Gratuito</span></div>
+              <div>
+                <button>
+                  Adicionar cupom de desconto
+                  <i class="bx bx-right-arrow-alt"></i>
+                </button>
+              </div>
+            </div>
+            <footer>
+              <span>Total</span>
+              <span>R$ 418</span>
+            </footer>
+          </div>
+          <button>Finalizar Compra</button>
+          <a href="index.html" class="voltar">Voltar</a>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
