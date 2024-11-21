@@ -87,10 +87,10 @@ class JogadorRepository
         $state->bindParam(':email', $email);
         $state->execute();
         if ($state->rowCount() == 0)
-            throw new \PDOException("Jogador não encontrado");
+            throw new \PDOException("Login ou senha inválidos");
         $result = $state->fetch(\PDO::FETCH_ASSOC);
         if (!$result)
-            throw new \PDOException("Jogador não encontrado");
+            throw new \PDOException("Problemas ao buscar jogador");
         return $this->mapToJogador($result);
     }
 

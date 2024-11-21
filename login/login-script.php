@@ -21,35 +21,6 @@ include("../controllers/jogadorController/jogadorController.php");
 // inserir comandos acima para importar as funções necessárias
 // como o arquivo de conexão e o arquivo de controller
 
-function loginClient(PDO $connect, string $email, string $senha)
-{
-    $result = getClienteByEmail($connect, $email);
-    if ($result)
-    {
-        if (password_verify($senha, $result['ds_senha']))
-        {
-            echo "Login efetuado com sucesso";
-            session_start();
-            session_regenerate_id(true);
-            $_SESSION['initiated'] = true;
-            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
-
-
-            $_SESSION['user_id'] = $result['cd_cli'];
-            $_SESSION['user_name'] = $result['name_cli'];
-            $_SESSION['user_email'] = $result['ds_email'];
-            $_SESSION['type_login'] = "usuario";
-
-            header("Location: ../home-usuario/home.php");
-            exit() ;
-        }
-        else
-        {
-            header("Location: login.php?error=Senha incorreta");
-        }
-    }
-}
-
 function loginJogador(PDO $connect, string $email, string $senha)
 {
     $result = getJogadorByEmail($connect, $email);
@@ -102,6 +73,7 @@ try
     {
         $jogador = new JogadorController($connect);
         $jogador->loginJogador($email, $senha);
+        header("Location: ../home-jogador/home.php");
         // loginJogador($connect, $email, $senha);
     }
     else

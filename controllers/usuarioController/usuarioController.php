@@ -95,32 +95,16 @@ class UsuarioController
     public function loginUsuario(string $email, string $senha)
     {
         $cliente = $this->usuarioService->loginClient($email, $senha);
-        var_dump($cliente);
-        // $result = getClienteByEmail($this->db, $email);
-        // if ($result)
-        // {
-        //     if (password_verify($senha, $result['ds_senha']))
-        //     {
-        //         echo "Login efetuado com sucesso";
-                session_start();
-                session_regenerate_id(true);
-                $_SESSION['initiated'] = true;
-                $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['initiated'] = true;
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
 
 
-                $_SESSION['user_id'] = $cliente->getId();
-                $_SESSION['user_name'] = $cliente->getName();
-                $_SESSION['user_email'] = $cliente->getEmail();
-                $_SESSION['type_login'] = "usuario";
-
-                header("Location: ../home-usuario/home.php");
-                exit() ;
-        //     }
-        //     else
-        //     {
-        //         throw new \PDOException("Usuario ou senha incorreta");
-        //     }
-        // }
+        $_SESSION['user_id'] = $cliente->getId();
+        $_SESSION['user_name'] = $cliente->getName();
+        $_SESSION['user_email'] = $cliente->getEmail();
+        $_SESSION['type_login'] = "usuario";
     }
 }
 

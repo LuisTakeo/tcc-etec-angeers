@@ -97,29 +97,16 @@ class JogadorController
 
     public function loginJogador(string $email, string $senha)
     {
-        $result = getJogadorByEmail($this->db, $email);
-        if ($result)
-        {
-            if (password_verify($senha, $result['ds_senha']))
-            {
-                echo "Login efetuado com sucesso";
-                session_start();
-                session_regenerate_id(true);
-                $_SESSION['initiated'] = true;
-                $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        $jogador = $this->jogadorService->loginJogador($email, $senha);
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['initiated'] = true;
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
 
-                $_SESSION['user_id'] = $result['cd_jog'];
-                $_SESSION['user_name'] = $result['name_jog'];
-                $_SESSION['user_email'] = $result['ds_email'];
-                $_SESSION['type_login'] = "jogador";
-                header("Location: ../home-jogador/home.php");
-                exit() ;
-            }
-            else
-            {
-                throw new PDOException("Location: login.php?error=Senha incorreta");
-            }
-        }
+        $_SESSION['user_id'] = $jogador->getId();
+        $_SESSION['user_name'] = $jogador->getName();
+        $_SESSION['user_email'] = $jogador->getEmail();
+        $_SESSION['type_login'] = "jogador";
     }
 }
 

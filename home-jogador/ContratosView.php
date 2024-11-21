@@ -66,14 +66,16 @@ function showContratosPendentes(array $contratos)
 
 function showContratosSolicitadoCliente(array $contratos)
 {
-    echo "<section class='main__servicos'>
-    <div class='main__servicos__title'>
-            <h3>Solicitações</h3>
-    </div>
-    <div class='main__servicos__cards'>";
     $contratos_solicitados = array_filter($contratos, function($contrato) {
         return $contrato['ds_statusjog'] == 'aguardando';
     });
+    echo "<section class='main__servicos'>
+    <div class='main__servicos__title'>
+    <h3>Solicitações</h3>
+    </div>
+    <div class='main__servicos__cards'>";
+    if (empty($contratos_solicitados))
+        echo "<h3>Nenhuma solicitação encontrada!</h3>";
     foreach ($contratos_solicitados as $contrato)
     {
         echo "<div class='card'>";
@@ -119,14 +121,14 @@ function showContratosAtivos(array $contratos)
 
 function showContratosFinalizados(array $contratos)
 {
+    $contratos_finalizados = array_filter($contratos, function($contrato) {
+        return $contrato['ds_statuscontrato'] == 'finalizado';
+    });
     echo "<section class='main__servicos'>
     <div class='main__servicos__title'>
             <h3>Serviços Finalizados</h3>
     </div>
     <div class='main__servicos__cards'>";
-    $contratos_finalizados = array_filter($contratos, function($contrato) {
-        return $contrato['ds_statuscontrato'] == 'finalizado';
-    });
     if (empty($contratos_finalizados))
         echo "<h3>Nenhum contrato finalizado!</h3>";
     foreach ($contratos_finalizados as $contrato)
