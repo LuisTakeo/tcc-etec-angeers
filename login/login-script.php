@@ -1,9 +1,21 @@
 <?php
+
+
+use controllers\usuarioController\UsuarioController;
+use controllers\jogadorController\JogadorController;
+use models\Usuario;
+
 use function Connection\connect_to_db_pdo;
 use function controllers\jogadorController\getJogadorByEmail;
 use function controllers\usuarioController\getClienteByEmail;
 
 include("../connection/connect.php");
+include("../repository/UsuarioRepository.php");
+include("../services/UsuarioService.php");
+include("../model/Usuario.php");
+include("../model/Jogador.php");
+include("../repository/JogadorRepository.php");
+include("../services/JogadorService.php");
 include("../controllers/usuarioController/usuarioController.php");
 include("../controllers/jogadorController/jogadorController.php");
 // inserir comandos acima para importar as funções necessárias
@@ -69,7 +81,7 @@ try
 {
     $connect = connect_to_db_pdo($server, $user, $password, $db);
     if (!$connect)
-        throw new \PDOException("Connection failed");
+        throw new \PDOException("Falha de conexão. Tente novamente mais tarde.");
 
     // Getting inputs from form
     // $email = $_POST['email'];
@@ -81,11 +93,16 @@ try
 
     if ($type_login == "usuario")
     {
-        loginClient($connect, $email, $senha);
+        $client = new UsuarioController($connect);
+        $client->loginUsuario($email, $senha);
+        header("Location: ../home-usuario/home.php");
+        // loginClient($connect, $email, $senha);
     }
     else if ($type_login == "jogador")
     {
-        loginJogador($connect, $email, $senha);
+        $jogador = new JogadorController($connect);
+        $jogador->loginJogador($email, $senha);
+        // loginJogador($connect, $email, $senha);
     }
     else
     {
@@ -95,6 +112,6 @@ try
 }
 catch (\PDOException $err)
 {
-    echo "Error: " . $err->getMessage();
-    header("Location: login.php?error=Não encontrado");
+    // echo $err->getMessage();
+    header("Location: login.php?error=". $err->getMessage());
 }

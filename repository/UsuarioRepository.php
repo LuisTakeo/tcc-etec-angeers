@@ -86,10 +86,10 @@ class UsuarioRepository
         $state->bindParam(':email', $email);
         $state->execute();
         if ($state->rowCount() == 0)
-            throw new \PDOException("Cliente não encontrado");
+            throw new \PDOException("Usuario ou senha inválidos");
         $result = $state->fetch(\PDO::FETCH_ASSOC);
         if (!$result)
-            throw new \PDOException("Cliente não encontrado");
+            throw new \PDOException("Usuario ou senha inválidos");
         return $this->mapToUsuario($result);
     }
 
