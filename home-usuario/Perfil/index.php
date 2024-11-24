@@ -1,7 +1,9 @@
 <?php
 use function Connection\connect_to_db_pdo;
 use controllers\usuarioController\UsuarioController;
-include_once("../Servicos/includes.php");
+
+$parentDir = dirname(__DIR__); // Get the parent directory
+include_once($parentDir . "/Servicos/includes.php");
 
 if (!isset($_SESSION['user_id'])) {
     // Se não estiver logado, redireciona para a página de login
@@ -42,7 +44,7 @@ try {
 </head>
 
 <body>
-    <div class="container">
+    <div class="">
         <header>
             <nav class="header__nav">
                 <ul class="header__nav__list">
@@ -54,7 +56,15 @@ try {
                     <div class="dropdown">
                         <button class="dropbtn">
                             <a class="header__nav__link perfil" href="#">
-                                <img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/>
+                                <img width="32" height="32" class="d-block rounded-circle"
+                                src="
+                                <?php
+                                if (file_exists($parentDir . "/uploads/" . $_SESSION['user_email'] . "/perfil.jpg")) {
+                                    echo "../uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                } else
+                                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                                ?>
+                                " alt="user-male-circle"/>
                                 <?php echo $_SESSION['user_name']; ?>
                             </a>
                         </button>
@@ -68,15 +78,11 @@ try {
         </header>
     </div>
 
-    <div class="container">
-
-
-
-    <div class="container light-style flex-grow-1 container-p-y">
+    <main class="container light-style flex-grow-1 container-p-y">
         <!-- <h4 class="font-weight-bold py-3 mb-4">
             Account settings
         </h4> -->
-        <div class="card overflow-hidden">
+        <section class="card overflow-hidden">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
@@ -100,17 +106,26 @@ try {
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
+                        <form action="./uploadphoto.php" method="post"
+                            enctype="multipart/form-data"
+                            class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
-                                    class="d-block ui-w-80">
+                                <img id="preview"
+                                    src="
+                                    <?php
+                                        if (file_exists($parentDir . "/uploads/" . $_SESSION['user_email'] . "/perfil.jpg")) {
+                                            echo "../uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                        } else
+                                            echo "https://bootdey.com/img/Content/avatar/avatar1.png";
+                                    ?>" alt
+                                    class="d-block rounded-circle" style="width: 4rem; height: 4rem;">
                                 <div class="media-body ml-4">
                                     <label class="btn btn-outline-primary">
                                         Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
+                                        <input type="file" name="photoUser" class="account-settings-fileinput" onchange="validateImage(event)">
                                     </label> &nbsp;
-                                    <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                                    <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                    <button type="button" class="btn btn-default md-btn-flat" onclick="resetImage()">Reset</button>
+                                    <div class="text-light small mt-1">Allowed image files. Max size of 800K</div>
                                 </div>
                             </div>
                             <hr class="border-light m-0">
@@ -144,12 +159,12 @@ try {
                                 </div>
                                 <br> <hr>
                                 <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Salvar</button>&nbsp;
+                                    <input class="btn btn-primary" name="submit" type="submit" value="Salvar">&nbsp;
                                     <button type="button" class="btn btn-default">Cancelar</button>
                                 </div>
                             </div>
 
-                        </div>
+                        </form>
                         <div class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
                                 <div class="form-group">
@@ -185,7 +200,7 @@ try {
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Data de nascimento</label>
-                                    <input type="date" class="form-control" value="10-03-2007">
+                                    <input type="date" class="form-control" value="2007-03-10">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Região</label>
@@ -351,9 +366,9 @@ try {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
     <footer id="final">
         <div class="container">
             <div class="footer-info">
@@ -376,12 +391,8 @@ try {
         </div>
     </footer>
 
-    <script>
-        const list = document.querySelector('.header__box__options');
-            const perfilLink = document.querySelector('.perfil');
-            perfilLink.addEventListener('click', () => {
-                list.classList.toggle('active');
-            });
+    <script src="./perfil.js">
+
     </script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

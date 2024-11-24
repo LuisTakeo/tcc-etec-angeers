@@ -8,6 +8,7 @@
     background-color: var(--bg-color);
 }
 
+
 .main__perfil
 {
     display: flex;
@@ -128,6 +129,12 @@
     align-items: center;
     gap: 10px;
 }
+
+
+.profile-pic {
+    border-radius: 50%;
+}
+
 
 @media screen and (max-width: 1024px) {
 
