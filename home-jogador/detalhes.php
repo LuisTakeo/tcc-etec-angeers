@@ -16,6 +16,44 @@ include_once("./includes.php");
 	<link rel="stylesheet" href="style.css">
     <link real="stylesheet" href="header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .contract-details {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .contract-details h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .contract-details p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .contract-details a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .contract-details a:hover {
+            background-color: #0056b3;
+        }
+        .profile-pic {
+            border-radius: 50%;
+        }
+        .dropdown-content a {
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -41,7 +79,16 @@ include_once("./includes.php");
 
                     <div class="dropdown">
   <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
+  <img width="32" height="32" style="border-radius: 50%;" class="profile-pic"
+                                src="
+                                <?php
+                                if (file_exists("./uploads/" . $_SESSION['user_email'] . "/perfil.jpg"))
+                                    echo "./uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                else
+                                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                                ?>
+                                " alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
     <a href="perfil/index.php" >Perfil</a>
@@ -60,7 +107,7 @@ include_once("./includes.php");
             </h2>
 		</section>
         <section class="main__perfil">
-            <section>
+            <section class="contract-details">
                 <?php
                 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
                 try
@@ -85,16 +132,22 @@ include_once("./includes.php");
                         $jogador = $jogadorController->getJogadorById($contrato->getIdJogador());
                     }
 
-                    echo "<h1 class='main__perfil__title'>Contrato</h1>";
-                    echo "<p class'card__description__text'>Nome do Client: " . $cliente->getName() . "</p>";
+                    echo "<h1>Contrato</h1>";
+                    echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+            if (file_exists("../home-usuario/uploads/" . $cliente->getEmail() . "/perfil.jpg")) {
+                echo "../home-usuario/uploads/" . $cliente->getEmail() . "/perfil.jpg";
+            } else
+                echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+            echo "' alt='add--v1'/>";
+                    echo "<p>Nome do Cliente: " . $cliente->getName() . "</p>";
                     if ($jogador)
-                        echo "<p class'card__description__text'>Nome do Jogador: " . $jogador->getName() . "</p>";
+                        echo "<p>Nome do Jogador: " . $jogador->getName() . "</p>";
                     else
-                        echo "<p class'card__description__text'>Nome do Jogador: Não encontrado</p>";
-                    echo "<p class'card__description__text'>Valor do contrato: " . $contrato->getValor() . "</p>";
-                    echo "<p class'card__description__text'>Status do contrato: " . $contrato->getStatusContrato() . "</p>";
-                    echo "<p class'card__description__text'>Data do contrato: " . $contrato->getDataInicio() . "</p>";
-                    echo "<a class='card__link' href='./finalizar.php?idContrato=".$contrato->getId()."'>Finalizar</a>";
+                        echo "<p>Nome do Jogador: Não encontrado</p>";
+                    echo "<p>Valor do contrato: " . $contrato->getValor() . "</p>";
+                    echo "<p>Status do contrato: " . $contrato->getStatusContrato() . "</p>";
+                    echo "<p>Data do contrato: " . $contrato->getDataInicio() . "</p>";
+                    echo "<a href='./finalizar.php?idContrato=".$contrato->getId()."'>Finalizar</a>";
                 }
                 catch (\PDOException $e)
                 {

@@ -1,6 +1,7 @@
 <?php
 use function Connection\connect_to_db_pdo;
 use function controllers\contratoController\getContratosByUsuario;
+use controllers\jogadorController\JogadorController;
 
 function showStatus(string $status): string
 {
@@ -22,8 +23,9 @@ function showStatus(string $status): string
 
 include_once("./includes.php");
 
-function showContratosPendentes(array $contratos)
+function showContratosPendentes(array $contratos, JogadorController $jogadorController)
 {
+
     echo "<section class='main__servicos'>
         <div class='main__servicos__title'>
                 <h3>Serviços Pendentes</h3>
@@ -39,7 +41,13 @@ function showContratosPendentes(array $contratos)
             echo "<h4 class='card__description__title'>" .
                 ($contrato['cd_jog'] ? $contrato['name_jog'] : "Aguardando jogador") ."</h4>";
             echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscli']) . "</p>";
-            echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+            $email = $contrato['cd_jog'] ? $jogadorController->getJogadorById($contrato['cd_jog'])->getEmail() : NULL;
+                echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+                if ($contrato['cd_jog'] && file_exists("../home-jogador/uploads/" . $email . "/perfil.jpg")) {
+                    echo "../home-jogador/uploads/" . $email     . "/perfil.jpg";
+                } else
+                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                echo "' alt='add--v1'/>";
             echo "<p class='card_description_text'>Inicio-" .
             DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
             " </p>";
@@ -53,7 +61,7 @@ function showContratosPendentes(array $contratos)
             </section>";
 }
 
-function showContratosAtivos(array $contratos)
+function showContratosAtivos(array $contratos, JogadorController $jogadorController)
 {
 
     echo "<section class='main__servicos'>
@@ -76,7 +84,13 @@ function showContratosAtivos(array $contratos)
                 echo "<h4 class='card__description__title'>" .
                     ($contrato['cd_jog'] ? $contrato['name_jog'] : "Aguardando jogador") ."</h4>";
                 echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscontrato']) . "</p>";
-                echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+                $email = $contrato['cd_jog'] ? $jogadorController->getJogadorById($contrato['cd_jog'])->getEmail() : NULL;
+                echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+                if ($contrato['cd_jog'] && file_exists("../home-jogador/uploads/" . $email . "/perfil.jpg")) {
+                    echo "../home-jogador/uploads/" . $email     . "/perfil.jpg";
+                } else
+                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                echo "' alt='add--v1'/>";
                 echo "<p class='card_description_text'>Inicio-" .
                 DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
                 " </p>";
@@ -91,7 +105,7 @@ function showContratosAtivos(array $contratos)
         // var_dump($contratos);
         echo "</section>";
 }
-function showContratosFinalizados(array $contratos)
+function showContratosFinalizados(array $contratos, JogadorController $jogadorController)
 {
 
     echo "<section class='main__servicos'>
@@ -113,7 +127,13 @@ function showContratosFinalizados(array $contratos)
                 echo "<h4 class='card__description__title'>" .
                     ($contrato['cd_jog'] ? $contrato['name_jog'] : "Aguardando jogador") ."</h4>";
                 echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscontrato']) . "</p>";
-                echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+                $email = $contrato['cd_jog'] ? $jogadorController->getJogadorById($contrato['cd_jog'])->getEmail() : NULL;
+                echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+                if ($contrato['cd_jog'] && file_exists("../home-jogador/uploads/" . $email . "/perfil.jpg")) {
+                    echo "../home-jogador/uploads/" . $email     . "/perfil.jpg";
+                } else
+                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                echo "' alt='add--v1'/>";
                 echo "<p class='card_description_text'>Inicio-" .
                 DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
                 " </p>";
@@ -135,13 +155,14 @@ function showContratosFinalizados(array $contratos)
 try {
     $connect = connect_to_db_pdo($server, $user, $password, $db);
     $contratos = getContratosByUsuario($connect, $_SESSION['user_id']);
+    $jogadorController = new JogadorController($connect);
     // var_dump($contratos);
 
     if ($contratos)
     {
-        showContratosPendentes($contratos);
-        showContratosAtivos($contratos);
-        showContratosFinalizados($contratos);
+        showContratosPendentes($contratos, $jogadorController);
+        showContratosAtivos($contratos, $jogadorController);
+        showContratosFinalizados($contratos, $jogadorController);
     } else {
         echo "<h1>Nenhum contrato encontrado!</h1>";
     }

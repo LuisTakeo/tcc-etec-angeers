@@ -7,6 +7,13 @@
 	<link rel="stylesheet" href="style.css">
     <link real="stylesheet" href="header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .img_rounded
+        {
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -32,7 +39,16 @@
 
                     <div class="dropdown">
   <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
+  <img width="32" height="32"  class="profile-pic"style="border-radius: 50%;"
+                                src="
+                                <?php
+                                if (file_exists("./uploads/" . $_SESSION['user_email'] . "/perfil.jpg"))
+                                    echo "./uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                else
+                                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                                ?>
+                                " alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
     <a href="perfil/index.php" >Perfil</a>
@@ -82,6 +98,13 @@
             perfilLink.addEventListener('click', () => {
                 list.classList.toggle('active');
             });
+
+            // const img_perfil =document.querySelectorAll('.profile-pic');
+            // img_perfil.forEach(img => {
+            //     img.style.borderRadius = '50%';
+            //     console.log(img.style);
+            //     // console.log(img.computedStyleMap().get('border-radius'));s
+            // });
         </script>
 </body>
 </html>

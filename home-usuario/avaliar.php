@@ -92,6 +92,13 @@ use function controllers\servicosController\getServico;
 
                     echo "<div class='details'>";
                     echo "<h1 class='main__perfil__title'>". getServico($connect, $contrato->getId_servico())["nm_serv"] ."</h1>";
+                    $email = $contrato->getIdJogador() ? $jogadorController->getJogadorById($contrato->getIdJogador())->getEmail() : NULL;
+                    echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+                    if ($contrato->getIdJogador() && file_exists("../home-jogador/uploads/" . $email . "/perfil.jpg")) {
+                        echo "../home-jogador/uploads/" . $email     . "/perfil.jpg";
+                    } else
+                        echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                    echo "' alt='add--v1'/>";
                     echo "<p class='card__description__text'>Nome do Cliente: " . $cliente->getName() . "</p>";
                     if ($jogador)
                         echo "<p class='card__description__text'>Nome do Jogador: " . $jogador->getName() . "</p>";

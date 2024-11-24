@@ -33,10 +33,19 @@
 
                     <div class="dropdown">
   <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
+  <img width="32" height="32" class="d-block rounded-circle"style="border-radius: 50%;"
+                                src="
+                                <?php
+                                if (file_exists("../uploads/" . $_SESSION['user_email'] . "/perfil.jpg")) {
+                                    echo "../uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                } else
+                                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                                ?>
+                                " alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
-    <a href="perfil/index.php" >Perfil</a>
+    <a href="../perfil/index.php" >Perfil</a>
     <a href="../logout.php">Sair</a>
   </div>
     </div>

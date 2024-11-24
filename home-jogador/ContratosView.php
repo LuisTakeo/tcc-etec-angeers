@@ -60,7 +60,12 @@ function showContratosPendentes(array $contratos)
             echo "<h4 class='card__description__title'>" .
                 ($contrato['cd_cli'] ? $contrato['name_cli'] : "Aguardando jogador") ."</h4>";
             echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscli']) . "</p>";
-            echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+            echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+            if (file_exists("../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg")) {
+                echo "../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg";
+            } else
+                echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+            echo "' alt='add--v1'/>";
             echo "<p class='card_description_text'>Inicio-" .
             DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
             " </p>";
@@ -93,7 +98,12 @@ function showContratosSolicitadoCliente(array $contratos)
         echo "<h4 class='card__description__title'>" .
             ($contrato['cd_jog'] ? $contrato['name_jog'] : "Aguardando jogador") ."</h4>";
         echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscli']) . "</p>";
-        echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+        echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+            if (file_exists("../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg")) {
+                echo "../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg";
+            } else
+                echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+            echo "' alt='add--v1'/>";
         echo "<p class='card_description_text'>Inicio-" . DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  . " </p>";
         echo "<a class='card__link' href='./contratoAtivo.php?pendente=0&contrato_id=".$contrato['cd_contrato']."'>Aceitar</a>";
     }
@@ -118,7 +128,12 @@ function showContratosAtivos(array $contratos)
         echo "<h4 class='card__description__title'>" .
             ($contrato['cd_cli'] ? $contrato['name_cli'] : "Aguardando jogador") ."</h4>";
         echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscontrato']) . "</p>";
-        echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+        echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+            if (file_exists("../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg")) {
+                echo "../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg";
+            } else
+                echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+            echo "' alt='add--v1'/>";
         echo "<p class='card_description_text'>Inicio-" . DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  . " </p>";
         echo "<a class='card__link' href='./detalhes.php?id=". $contrato['cd_contrato'] . "'>Detalhes</a>";
         echo "</div>";
@@ -148,7 +163,12 @@ function showContratosFinalizados(array $contratos)
         echo "<h4 class='card__description__title'>" .
             ($contrato['name_cli']) ."</h4>";
         echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscontrato']) . "</p>";
-        echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+        echo "<img width='50' height='50' class='img-rounded' style='border-radius:50%' src='";
+            if (file_exists("../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg")) {
+                echo "../home-usuario/uploads/" . $contrato['ds_email'] . "/perfil.jpg";
+            } else
+                echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+            echo "' alt='add--v1'/>";
         echo "<p class='card_description_text'>Inicio-" . DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  . " </p>";
         echo "<a class='card__link' href='#'>Detalhes</a>";
         echo "</div>";

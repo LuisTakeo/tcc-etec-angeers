@@ -1,4 +1,34 @@
 
+<?php
+use function Connection\connect_to_db_pdo;
+use controllers\jogadorController\JogadorController;
+include("./includes.php");
+include_once("../../connection/session_secure.php");
+$parentDir = dirname(__DIR__); // Get the parent directory
+if (!isset($_SESSION['user_id'])) {
+    // Se não estiver logado, redireciona para a página de login
+    header('Location: ../../login/login.php');
+    exit();
+}
+if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "usuario") {
+    header("Location: ../../home-usuario/home.php");
+    exit();
+}
+
+
+try {
+    $connect = connect_to_db_pdo($server, $user, $password, $db);
+    if (!$connect)
+        throw new \PDOException("Connection failed");
+
+    $jogadorController = new JogadorController($connect);
+    $jogador = $jogadorController->getJogadorById($_SESSION['user_id']);
+    // $jogador = $jogadorController->getUsuario($_SESSION['user_id']);
+} catch (\PDOException $e) {
+    echo $e->getMessage();
+    exit();
+}
+?>
 <!--Website: wwww.codingdung.com-->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +44,6 @@
 </head>
 
 <body>
-    <?php
-        include_once("../../connection/session_secure.php");
-        if (!isset($_SESSION['user_id'])) {
-            // Se não estiver logado, redireciona para a página de login
-            header('Location: ../../login/login.php');
-            exit();
-        }
-        if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "usuario") {
-            header("Location: ../../home-usuario/home.php");
-            exit();
-        }
-    ?>
   <div class="container">
           <header>
 			<nav class="header__nav">
@@ -37,7 +55,16 @@
 
                     <div class="dropdown">
   <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
+  <img width="32" height="32" class="d-block rounded-circle"
+                                src="
+                                <?php
+                                if (file_exists($parentDir . "/uploads/" . $_SESSION['user_email'] . "/perfil.jpg")) {
+                                    echo "../uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                } else
+                                    echo "https://img.icons8.com/cotton/64/user-male-circle.png";
+                                ?>
+                                " alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
 					</a></button>
   <div class="dropdown-content">
     <a href="perfil/index.php" >Perfil</a>
@@ -49,11 +76,11 @@
 
 
 
-    <div class="container light-style flex-grow-1 container-p-y">
+<main class="container light-style flex-grow-1 container-p-y">
         <!-- <h4 class="font-weight-bold py-3 mb-4">
             Account settings
         </h4> -->
-        <div class="card overflow-hidden">
+        <section class="card overflow-hidden">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
@@ -77,17 +104,26 @@
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
+                        <form action="./uploadphoto.php" method="post"
+                            enctype="multipart/form-data"
+                            class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
-                                    class="d-block ui-w-80">
+                                <img id="preview"
+                                    src="
+                                    <?php
+                                        if (file_exists($parentDir . "/uploads/" . $_SESSION['user_email'] . "/perfil.jpg")) {
+                                            echo "../uploads/" . $_SESSION['user_email'] . "/perfil.jpg";
+                                        } else
+                                            echo "https://bootdey.com/img/Content/avatar/avatar1.png";
+                                    ?>" alt
+                                    class="d-block rounded-circle" style="width: 4rem; height: 4rem;">
                                 <div class="media-body ml-4">
                                     <label class="btn btn-outline-primary">
                                         Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
+                                        <input type="file" name="photoUser" class="account-settings-fileinput" onchange="validateImage(event)">
                                     </label> &nbsp;
-                                    <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                                    <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                    <button type="button" class="btn btn-default md-btn-flat" onclick="resetImage()">Reset</button>
+                                    <div class="text-light small mt-1">Allowed image files. Max size of 800K</div>
                                 </div>
                             </div>
                             <hr class="border-light m-0">
@@ -98,11 +134,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="Andreas Sampaio Ferreira de Sousa">
+                                    <input type="text" class="form-control" value="<?php echo $jogador->getName()?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="Andreassam009@gmail.com">
+                                    <input type="text" class="form-control mb-1" value="<?php echo $jogador->getEmail()?>">
                                     <div class="alert alert-warning mt-3">
                                        Adicione seu telefone e ative a verificação em duas etapas.<br>
                                         <a href="javascript:void(0)">Cadastrar</a>
@@ -121,12 +157,12 @@
                                 </div>
                                 <br> <hr>
                                 <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Salvar</button>&nbsp;
+                                    <input class="btn btn-primary" name="submit" type="submit" value="Salvar">&nbsp;
                                     <button type="button" class="btn btn-default">Cancelar</button>
                                 </div>
                             </div>
 
-                        </div>
+                        </form>
                         <div class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
                                 <div class="form-group">
@@ -158,11 +194,11 @@
                                 <div class="form-group">
                                     <label class="form-label">Bio</label>
                                     <textarea class="form-control"
-                                        rows="5"> Olá meu nome é Andreas, sou um jogador de Valorant que estou preso no imortal3 a 2 anos.</textarea>
+                                        rows="5"> Olá meu nome é <?php echo $jogador->getName(); ?>, sou um jogador de Valorant que estou preso no imortal3 a 2 anos.</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Data de nascimento</label>
-                                    <input type="date" class="form-control" value="10-03-2007">
+                                    <input type="date" class="form-control" value="2007-03-10">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Região</label>
@@ -180,11 +216,11 @@
                                 <h6 class="mb-4">Informações de contato</h6>
                                 <div class="form-group">
                                     <label class="form-label">Telefone</label>
-                                    <input type="text" class="form-control" value="+555 11-94210-4940">
+                                    <input type="text" class="form-control" value="<?=$jogador->getTel() ?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value="Andreassam009@gmail.com">
+                                    <input type="text" class="form-control" value="<?=$jogador->getEmail()?>">
                                 </div>
                                 <br> <hr>
                                 <div class="text-right mt-3">
@@ -328,9 +364,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </main>
     <footer id="final">
         <div class="container">
             <div class="footer-info">
@@ -352,6 +388,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="./perfil.js"></script>
 
     <script>
         const list = document.querySelector('.header__box__options');

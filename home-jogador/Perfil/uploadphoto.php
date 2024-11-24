@@ -1,5 +1,5 @@
 <?php
-include("../Servicos/includes.php");
+include("./includes.php");
 if (!isset($_SESSION['user_id'])) {
     // Se não estiver logado, redireciona para a página de login
     header('Location: ../../login/login.php');
@@ -16,6 +16,10 @@ if (!is_dir($target_dir)) {
     }
 }
 
+if (!isset($_FILES["photoUser"])) {
+    echo "No file uploaded";
+    header('Location: index.php');
+}
 $imageFileType = strtolower(pathinfo($_FILES["photoUser"]["name"], PATHINFO_EXTENSION));
 $target_file = $target_dir . "perfil.jpg"; // Save as JPEG
 $uploadOk = 1;
@@ -29,6 +33,10 @@ var_dump($_FILES["photoUser"]);
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
+  if (empty($_FILES["photoUser"]["tmp_name"])) {
+    echo "No file uploaded";
+    header('Location: index.php');
+  }
   $check = getimagesize($_FILES["photoUser"]["tmp_name"]);
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
@@ -59,11 +67,6 @@ if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-  // Remove the previous image if it exists
-  if (file_exists($target_file)) {
-    unlink($target_file);
-  }
-
   if (move_uploaded_file($_FILES["photoUser"]["tmp_name"], $target_file)) {
     // Convert image to JPEG
     switch ($imageFileType) {

@@ -8,6 +8,11 @@
     background-color: var(--bg-color);
 }
 
+
+.img_rounded
+{
+    border-radius: 50%;
+}
 .main__perfil
 {
     display: flex;
