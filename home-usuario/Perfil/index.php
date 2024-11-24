@@ -1,4 +1,32 @@
+<?php
+use function Connection\connect_to_db_pdo;
+use controllers\usuarioController\UsuarioController;
+include_once("../Servicos/includes.php");
 
+if (!isset($_SESSION['user_id'])) {
+    // Se não estiver logado, redireciona para a página de login
+    header('Location: ../../login/login.php');
+    exit();
+}
+if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
+    header("Location: ../../home-jogador/home.php");
+    exit();
+}
+
+try {
+    $connect = connect_to_db_pdo($server, $user, $password, $db);
+    if (!$connect)
+        throw new \PDOException("Connection failed");
+
+    $usuarioController = new UsuarioController($connect);
+    $usuario = $usuarioController->getClienteById($_SESSION['user_id']);
+    // $usuario = $usuarioController->getUsuario($_SESSION['user_id']);
+} catch (\PDOException $e) {
+    echo $e->getMessage();
+    exit();
+}
+
+?>
 <!--Website: wwww.codingdung.com-->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,41 +42,34 @@
 </head>
 
 <body>
-    <?php
-        include_once("../Servicos/includes.php");
-        if (!isset($_SESSION['user_id'])) {
-            // Se não estiver logado, redireciona para a página de login
-            header('Location: ../../login/login.php');
-            exit();
-        }
-        if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
-            header("Location: ../../home-jogador/home.php");
-            exit();
-        }
-    ?>
-    <div class="container-header">
-        <header class="header">
-			<div class="header__top">
-				<h1 class="header__title"><a href="../home.php"><strong><img class="" src="../../logo.png" width="150" height="150" alt="" srcset=""</a></h1>
-				<div class="header__box">
-					<a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
-					</a>
-                    <ul class="header__box__options">
-                        <li class="header__box__options__link"><a href="./index.html" class="options__link">Perfil</a></li>
-                        <li class="header__box__options__link"><a href="../logout.php"  class="options__link">Sair</a></li>
+    <div class="container">
+        <header>
+            <nav class="header__nav">
+                <ul class="header__nav__list">
+                    <li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
+                    <li><a class="header__nav__link" href="#"><h3>Serviços</h3></a></li>
+                    <li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
                     </ul>
-				</div>
-			</div>
-			<nav class="header__nav">
-				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="../Servicos/Servicos.php"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
-			</nav>
-            <!-- Add your header content here -->
+
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            <a class="header__nav__link perfil" href="#">
+                                <img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
+                            </a>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="../Perfil/index.php" >Perfil</a>
+                            <a href="../logout.php">Sair</a>
+                        </div>
+                    </div>
+                </>
+            </nav>
         </header>
     </div>
+
+    <div class="container">
+
 
 
     <div class="container light-style flex-grow-1 container-p-y">
@@ -100,11 +121,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="Andreas Sampaio Ferreira de Sousa">
+                                    <input type="text" class="form-control" value="<?php echo $usuario->getName()?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="Andreassam009@gmail.com">
+                                    <input type="text" class="form-control mb-1" value="<?php echo $usuario->getEmail()?>">
                                     <div class="alert alert-warning mt-3">
                                        Adicione seu telefone e ative a verificação em duas etapas.<br>
                                         <a href="javascript:void(0)">Cadastrar</a>
@@ -160,7 +181,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Bio</label>
                                     <textarea class="form-control"
-                                        rows="5"> Olá meu nome é Andreas, sou um jogador de Valorant que estou preso no imortal3 a 2 anos.</textarea>
+                                        rows="5"> Olá meu nome é <?php echo $usuario->getName(); ?>, sou um jogador de Valorant que estou preso no imortal3 a 2 anos.</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Data de nascimento</label>
@@ -182,11 +203,11 @@
                                 <h6 class="mb-4">Informações de contato</h6>
                                 <div class="form-group">
                                     <label class="form-label">Telefone</label>
-                                    <input type="text" class="form-control" value="+555 11-94210-4940">
+                                    <input type="text" class="form-control" value="<?=$usuario->getTel() ?>">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value="Andreassam009@gmail.com">
+                                    <input type="text" class="form-control" value="<?=$usuario->getEmail()?>">
                                 </div>
                                 <br> <hr>
                                 <div class="text-right mt-3">

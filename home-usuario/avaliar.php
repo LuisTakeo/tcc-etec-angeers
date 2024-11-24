@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="slider.css">
+    <link rel="stylesheet" href="star-rating.css">
     <link rel="stylesheet" href="details.css">
-    <title>Detalhes</title>
+    <title>Document</title>
 </head>
 <body>
     <?php
@@ -14,10 +16,12 @@
 use controllers\contratoController\ContratoController;
 use controllers\jogadorController\JogadorController;
 use controllers\usuarioController\UsuarioController;
-use function controllers\servicosController\getServico;
+
 
     use function Connection\connect_to_db_pdo;
     use function controllers\contratoController\getContratoById;
+use function controllers\servicosController\getServico;
+
     include_once("./includes.php");
     include("../controllers/servicosController/servicosController.php");
 
@@ -41,11 +45,16 @@ use function controllers\servicosController\getServico;
                         <a href="logout.php">Sair</a>
                     </div>
                 </div>
+
+
             </nav>
+
         </header>
     </div>
 
+
     <div class="container main">
+
         <section class="main__perfil">
             <section>
                 <?php
@@ -72,17 +81,34 @@ use function controllers\servicosController\getServico;
                         $jogador = $jogadorController->getJogadorById($contrato->getIdJogador());
                     }
 
+
                     echo "<div class='details'>";
                     echo "<h1 class='main__perfil__title'>". getServico($connect, $contrato->getId_servico())["nm_serv"] ."</h1>";
-                    echo "<p class='card__description__text'><strong>Nome do Cliente:</strong> " . $cliente->getName() . "</p>";
+                    echo "<p class='card__description__text'>Nome do Cliente: " . $cliente->getName() . "</p>";
                     if ($jogador)
-                        echo "<p class='card__description__text'><strong>Nome do Jogador:</strong> " . $jogador->getName() . "</p>";
+                        echo "<p class='card__description__text'>Nome do Jogador: " . $jogador->getName() . "</p>";
                     else
-                        echo "<p class='card__description__text'><strong>Nome do Jogador:</strong> Não encontrado</p>";
-                    echo "<p class='card__description__text'><strong>Valor do contrato:</strong> " . $contrato->getValor() . "</p>";
-                    echo "<p class='card__description__text'><strong>Status do contrato:</strong> " . $contrato->getStatusContrato() . "</p>";
-                    echo "<p class='card__description__text'><strong>Data do contrato:</strong> " . $contrato->getDataInicio() . "</p>";
+                        echo "<p class='card__description__text'>Nome do Jogador: Não encontrado</p>";
+                    echo "<p class='card__description__text'>Valor do contrato: " . $contrato->getValor() . "</p>";
+                    echo "<p class='card__description__text'>Status do contrato: " . $contrato->getStatusContrato() . "</p>";
+                    echo "<p class='card__description__text'>Data do contrato: " . $contrato->getDataInicio() . "</p>";
+
+                    echo "<h2>Avaliação</h2>";
+                    echo "<div class='star-rating'>";
+                    echo "<span class='fa fa-star' data-rating='1'></span>";
+                    echo "<span class='fa fa-star' data-rating='2'></span>";
+                    echo "<span class='fa fa-star' data-rating='3'></span>";
+                    echo "<span class='fa fa-star' data-rating='4'></span>";
+                    echo "<span class='fa fa-star' data-rating='5'></span>";
+                    echo "<input type='hidden' name='rating' class='rating-value' value='3'>";
                     echo "</div>";
+
+                    echo "<h2>Deixe um comentário</h2>";
+                    echo "<textarea name='comment' rows='4' cols='50' placeholder='Escreva seu comentário aqui...'></textarea>";
+                    echo "<br>";
+                    echo "<button type='submit'>Enviar</button>";
+                    echo "</div>";
+
                 }
                 catch (\PDOException $e)
                 {
@@ -113,5 +139,20 @@ use function controllers\servicosController\getServico;
             </div>
         </div>
     </footer>
+    <script>
+        const stars = document.querySelectorAll('.star-rating .fa');
+        const ratingValue = document.querySelector('.rating-value');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingValue.value = rating;
+                stars.forEach(s => s.classList.remove('checked'));
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.add('checked');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

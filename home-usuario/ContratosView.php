@@ -117,9 +117,12 @@ function showContratosFinalizados(array $contratos)
                 echo "<p class='card_description_text'>Inicio-" .
                 DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
                 " </p>";
-                echo "<a class='card__link' href='./getDetalhes?id="
+                echo "<div><a class='card__link' href='./getDetalhes?id="
                     .   $contrato['cd_contrato']
                     .   "'>Detalhes</a>";
+                    echo "<a class='card__link' href='./avaliar?id="
+                    .   $contrato['cd_contrato']
+                    .   "'>Avaliar</a></div>";
                 echo "</div>";
                 echo "</div>";
             }
