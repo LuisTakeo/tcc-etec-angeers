@@ -132,19 +132,20 @@ class ContratoController
         }
     }
 
-    public function setContratoToFinalizado($contrato_id)
+
+
+
+
+    function getContrato($contrato_id)
     {
         try
         {
-            $contrato = $this->getContrato($contrato_id);
-            if (!$contrato)
-                throw new PDOException("Contrato não encontrado");
-            if ($contrato->getStatusContrato() != "ativo")
-                throw new PDOException("Contrato não ativo");
-            return $this->updateContratoStatus($contrato, "aceito", "aceito", "finalizado");
+            $contrato = $this->contratoService->getContratoById($contrato_id);
+            return $contrato;
         } catch (PDOException $err)
         {
             echo $err->getMessage();
+            return NULL;
         }
     }
 
@@ -166,16 +167,19 @@ class ContratoController
         }
     }
 
-    function getContrato($contrato_id)
+    public function setContratoToFinalizado($contrato_id)
     {
         try
         {
-            $contrato = $this->contratoService->getContratoById($contrato_id);
-            return $contrato;
+            $contrato = $this->getContrato($contrato_id);
+            if (!$contrato)
+                throw new PDOException("Contrato não encontrado");
+            if ($contrato->getStatusContrato() != "ativo")
+                throw new PDOException("Contrato não ativo");
+            return $this->updateContratoStatus($contrato, "aceito", "aceito", "finalizado");
         } catch (PDOException $err)
         {
             echo $err->getMessage();
-            return NULL;
         }
     }
 
@@ -216,6 +220,19 @@ class ContratoController
             });
             $contratosFiltered = array_values($contratosFiltered);
             return $contratosFiltered;
+        } catch (PDOException $err)
+        {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+    function getContratosPendentes()
+    {
+        try
+        {
+            $contratos = $this->contratoService->getContratosPendentes();
+
+            return $contratos;
         } catch (PDOException $err)
         {
             throw new PDOException($err->getMessage());

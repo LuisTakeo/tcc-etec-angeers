@@ -1,8 +1,24 @@
 <?php
+use controllers\jogadorController\JogadorController;
 use function Connection\connect_to_db_pdo;
 use function controllers\jogadorController\getJogadores;
-include("../../connection/connect.php");
-include("../../controllers/jogadorController/jogadorController.php");
+include_once("./includes.php");
+if (!isset($_SESSION['user_id'])) {
+    // Se não estiver logado, redireciona para a página de login
+    header('Location: ../../login/login.php');
+    exit();
+}
+if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
+    header("Location: ../../home-jogador/home.php");
+    exit();
+}
+// $tipo_servico;
+$id_servico;
+if (isset($_GET['tipo']))
+    $tipo_servico = $_GET['tipo'];
+if (isset($_GET['idservico']))
+    $id_servico = $_GET['idservico'];
+// var_dump($id_servico);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,25 +31,6 @@ include("../../controllers/jogadorController/jogadorController.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <?php
-        include_once("../../connection/session_secure.php");
-        if (!isset($_SESSION['user_id'])) {
-            // Se não estiver logado, redireciona para a página de login
-            header('Location: ../../login/login.php');
-            exit();
-        }
-        if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
-            header("Location: ../../home-jogador/home.php");
-            exit();
-        }
-        // $tipo_servico;
-        $id_servico;
-        if (isset($_GET['tipo']))
-            $tipo_servico = $_GET['tipo'];
-        if (isset($_GET['idservico']))
-            $id_servico = $_GET['idservico'];
-        // var_dump($id_servico);
-    ?>
     <div class="container">
           <header>
 			<nav class="header__nav">
@@ -77,6 +74,7 @@ include("../../controllers/jogadorController/jogadorController.php");
             $connect = connect_to_db_pdo($server, $user, $password, $db);
             if (!$connect)
                 throw new \PDOException("Connection failed");
+            $jogadorController = new JogadorController($connect);
             $jogadores = getJogadores($connect);
             if ($jogadores) {
                 echo "<section class='main__servicos'>";

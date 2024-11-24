@@ -23,24 +23,30 @@ if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
 <body>
 
     <div class="container">
-          <header>
-			<nav class="header__nav">
-				<ul class="header__nav__list">
-					<li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
-					<li><a class="header__nav__link" href="#"><h3>Serviços</h3></a></li>
-					<li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
+        <header>
+            <nav class="header__nav">
+                <ul class="header__nav__list">
+                    <li><a class="header__nav__link" href="../home.php"><h3>Home</h3></a></li>
+                    <li><a class="header__nav__link" href="#"><h3>Serviços</h3></a></li>
+                    <li><a class="header__nav__link" href="../Ajuda/index.php"><h3>Ajuda</h3></a></li>
                     </ul>
 
                     <div class="dropdown">
-  <button class="dropbtn"><a class="header__nav__link perfil" href="#">
-						<img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/><?php echo $_SESSION['user_name']; ?>
-					</a></button>
-  <div class="dropdown-content">
-    <a href="../Perfil/index.php" >Perfil</a>
-    <a href="../logout.php">Sair</a>
-  </div>
+                        <button class="dropbtn">
+                            <a class="header__nav__link perfil" href="#">
+                                <img width="32" height="32	" src="https://img.icons8.com/cotton/64/user-male-circle.png" alt="user-male-circle"/>
+                                <?php echo $_SESSION['user_name']; ?>
+                            </a>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="../Perfil/index.php" >Perfil</a>
+                            <a href="../logout.php">Sair</a>
+                        </div>
+                    </div>
+                </>
+            </nav>
+        </header>
     </div>
-</div>
 
     <main class="container main">
 		<section class="main__perfil">
@@ -51,31 +57,9 @@ if (isset($_SESSION['type_login']) && $_SESSION['type_login'] == "jogador") {
                 <h3>O que deseja hoje?</h3>
             </div>
             <div class="main__servicos__cards">
-                <!-- <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Elojob</h4>
-                        <p class="card__description__text">Tenha sua conta upada sem preocupações</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=EloJob">Contratar</a>
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__description__title">Duo Boost</h4>
-                        <p class="card__description__text">Suba sua conta junto com um duo</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=DuoBoost">Contratar</a>
-                </div>
-                <div class="card">
-                    <div class="card__description">
-                        <h4 class="card__title">Coach</h4>
-                        <p class="card__description__text">Aprenda mais sobre o jogo e adquira conhecimentos com um HighElo</p>
-                    </div>
-                    <a class="card__link" href="./NovoServico.php?tipo=Coach">Contratar</a>
-                </div> -->
                 <?php
                     include("./ServicosView.php");
                 ?>
-
             </div>
             <!-- Add your profile information here -->
         </section>

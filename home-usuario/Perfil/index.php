@@ -15,7 +15,7 @@
 
 <body>
     <?php
-        include_once("../../connection/session_secure.php");
+        include_once("../Servicos/includes.php");
         if (!isset($_SESSION['user_id'])) {
             // Se não estiver logado, redireciona para a página de login
             header('Location: ../../login/login.php');

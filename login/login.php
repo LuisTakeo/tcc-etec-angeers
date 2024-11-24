@@ -1,3 +1,16 @@
+<?php
+    include("../connection/session_secure.php");
+    if (isset($_SESSION['user_id'])) {
+        if ($_SESSION['type_login'] == "usuario") {
+            header("Location: ../home-usuario/home.php");
+            exit();
+        }
+        if ($_SESSION['type_login'] == "jogador") {
+            header("Location: ../home-jogador/home.php");
+            exit();
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

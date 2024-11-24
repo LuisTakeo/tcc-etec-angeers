@@ -20,8 +20,7 @@ function showStatus(string $status): string
     }
 }
 
-include_once("../connection/connect.php");
-include_once("../controllers/contratoController/contratoController.php");
+include_once("./includes.php");
 
 function showContratosPendentes(array $contratos)
 {

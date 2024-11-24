@@ -5,6 +5,10 @@ namespace controllers\jogadorController;
 use models\Jogador;
 use repository\JogadorRepository;
 use services\JogadorService;
+use models\Contrato;
+use services\ContratoService;
+use controllers\contratoController\ContratoController;
+use DateTime;
 use PDO;
 use PDOException;
 
@@ -107,6 +111,60 @@ class JogadorController
         $_SESSION['user_name'] = $jogador->getName();
         $_SESSION['user_email'] = $jogador->getEmail();
         $_SESSION['type_login'] = "jogador";
+    }
+
+    public function showContratosPendentes(ContratoController $contratoController)
+    {
+        $contatosPendentes = $contratoController->getContratosPendentes();
+        echo "<section class='main__servicos'>
+            <div class='main__servicos__title'>
+                    <h3>Serviços Pendentes</h3>
+            </div>
+            <div class='main__servicos__cards'>";
+        $contratos_pendentes = array_filter($contatosPendentes, function($contrato) {
+            return $contrato['statusContrato'] == 'pendente';
+        });
+        // var_dump($contratos_pendentes);
+        foreach ($contratos_pendentes as $contrato)
+        {
+            if ($contrato['ds_statuscli'] != 'buscando')
+            {
+                continue;
+            }
+            // var_dump($contrato);
+            echo "<div class='card'>";
+            echo "<div class='card__description'>";
+            echo "<h4 class='card__description__title'>" .
+                ($contrato['cd_cli'] ? $contrato['name_cli'] : "Aguardando jogador") ."</h4>";
+            echo "<p class='card__description__text'>". $contrato['nm_serv'] . " - " . showStatus($contrato['ds_statuscli']) . "</p>";
+            echo "<img width='50' height='50' src='https://img.icons8.com/cotton/64/user-male-circle.png' alt='add--v1'/>";
+            echo "<p class='card_description_text'>Inicio-" .
+            DateTime::createFromFormat('Y-m-d H:i:s', $contrato['ds_data'])->format('d/m/Y')  .
+            " </p>";
+            // echo "<a class='card__link' href='#'>Detalhes</a>";
+            echo "<a class='card__link' href='./contratoAtivo.php?pendente=1&contrato_id=".$contrato['cd_contrato']."'>Aceitar</a>";
+            echo "</div>";
+            echo "</div>";
+        }
+        echo "</div>
+            </section>";
+    }
+    public function showContratos($id)
+    {
+        try
+        {
+            $contratos = new ContratoController($this->db);
+            $contratosJogador = $contratos->getContratosByJogador($id);
+            // $contatosPendentes = $contratos->getContratosPendentes();
+            // var_dump($contratosJogador);
+            echo "Contratos do jogador:<br>";
+            var_dump($contratosJogador);
+            return $contratos;
+        } catch (PDOException $err)
+        {
+            echo $err->getMessage();
+        }
+        return NULL;
     }
 }
 
