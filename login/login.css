@@ -196,3 +196,7 @@ body{
     padding: 5px;
     color: rgba(255, 255, 255, 0.486);
 }
+.mostrar .img{
+    width: 10px;
+    height: 10px;
+}
