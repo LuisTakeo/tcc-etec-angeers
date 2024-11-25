@@ -109,11 +109,11 @@ try {
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                    <?php if (isset($_GET['message'])): ?>
-    <div class="alert alert-info">
-        <?php echo htmlspecialchars($_GET['message']); ?>
-    </div>
-<?php endif; ?>
+                        <?php if (isset($_GET['message'])): ?>
+                                <div class="alert alert-info">
+                                    <?php echo htmlspecialchars($_GET['message']); ?>
+                                </div>
+                            <?php endif; ?>
                         <form action="./uploadphoto.php" method="post"
                             enctype="multipart/form-data"
                             class="tab-pane fade active show" id="account-general">

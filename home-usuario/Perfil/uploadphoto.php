@@ -20,15 +20,15 @@ $imageFileType = strtolower(pathinfo($_FILES["photoUser"]["name"], PATHINFO_EXTE
 $target_file = $target_dir . "perfil.jpg"; // Save as JPEG
 $uploadOk = 1;
 
-echo $target_file;
-echo "<br>";
-echo $imageFileType;
-echo "<br>";
-echo $_FILES["photoUser"]["tmp_name"];
-var_dump($_FILES["photoUser"]);
+
 
 // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
+if (empty($_FILES["photoUser"]["tmp_name"]))
+{
+  $message = "No file selected";
+}
+else if(isset($_POST["submit"])) {
+
   $check = getimagesize($_FILES["photoUser"]["tmp_name"]);
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
@@ -43,22 +43,23 @@ if(isset($_POST["submit"])) {
 
 // Check file size
 if ($_FILES["photoUser"]["size"] > 500000) {
-  echo "Sorry, your file is too large.";
+  $message = "Sorry, your file is too large.";
   $uploadOk = 0;
 }
 
 // Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" && $imageFileType != "webp" && $imageFileType != "svg" && $imageFileType != "jfif") {
-  echo "Sorry, only JPG, JPEG, PNG, GIF, WEBP, SVG & JFIF files are allowed.";
+if($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png"
+    && $imageFileType != "gif" && $imageFileType != "webp" && $imageFileType != "svg"
+    && $imageFileType != "jfif") {
+  $message = "Sorry, only JPG, JPEG, PNG, GIF, WEBP, SVG & JFIF files are allowed.";
   $uploadOk = 0;
 }
 
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-  $message = "Sorry, your file was not uploaded.";
+var_dump($target_file);
+
+
+if ($uploadOk) {
 // if everything is ok, try to upload file
-} else {
   // Remove the previous image if it exists
   if (file_exists($target_file)) {
     unlink($target_file);
@@ -76,8 +77,8 @@ if ($uploadOk == 0) {
       case 'webp':
         $image = imagecreatefromwebp($target_file);
         break;
+        case 'jpg':
       case 'jpeg':
-      case 'jpg':
       default:
         $image = imagecreatefromjpeg($target_file);
         break;
@@ -94,6 +95,8 @@ if ($uploadOk == 0) {
   }
 }
 
+// var_dump($message);
+// var_dump($image);
 // Redirect to perfil.php with message
 header("Location: index.php?message=" . urlencode($message));
 exit();
