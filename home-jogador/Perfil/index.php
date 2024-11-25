@@ -1,4 +1,3 @@
-
 <?php
 use function Connection\connect_to_db_pdo;
 use controllers\jogadorController\JogadorController;
@@ -45,6 +44,7 @@ try {
 
 <body>
   <div class="container">
+
           <header>
 			<nav class="header__nav">
 				<ul class="header__nav__list">
@@ -104,6 +104,11 @@ try {
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
+                    <?php if (isset($_GET['message'])): ?>
+            <div class="alert alert-info">
+                <?php echo htmlspecialchars($_GET['message']); ?>
+            </div>
+        <?php endif; ?>
                         <form action="./uploadphoto.php" method="post"
                             enctype="multipart/form-data"
                             class="tab-pane fade active show" id="account-general">

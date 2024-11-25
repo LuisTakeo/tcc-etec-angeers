@@ -56,7 +56,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
+  $message = "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
   // Remove the previous image if it exists
@@ -85,12 +85,16 @@ if ($uploadOk == 0) {
     if ($image) {
       imagejpeg($image, $target_file, 100); // Save as JPEG with quality 100
       imagedestroy($image);
-      echo "The file ". htmlspecialchars( basename( $_FILES["photoUser"]["name"])). " has been uploaded and converted to JPEG.";
+      $message = "The file ". htmlspecialchars( basename( $_FILES["photoUser"]["name"])). " has been uploaded and converted to JPEG.";
     } else {
-      echo "Sorry, there was an error converting your file.";
+      $message = "Sorry, there was an error converting your file.";
     }
   } else {
-    echo "Sorry, there was an error uploading your file.";
+    $message = "Sorry, there was an error uploading your file.";
   }
 }
+
+// Redirect to perfil.php with message
+header("Location: index.php?message=" . urlencode($message));
+exit();
 ?>
