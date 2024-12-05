@@ -30,6 +30,16 @@ class UsuarioController
         }
     }
 
+    public function cadastrarApi($new_client)
+    {
+        try {
+            $message = $this->usuarioService->createUsuario($new_client);
+            echo json_encode(["message" => $message], JSON_UNESCAPED_UNICODE);
+        } catch (\PDOException $err) {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
     public function getClienteById($id)
     {
         try {

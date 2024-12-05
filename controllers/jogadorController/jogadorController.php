@@ -36,6 +36,18 @@ class JogadorController
         }
     }
 
+    public function cadastrarApi($new_jogador)
+    {
+        try
+        {
+            $message = $this->jogadorService->createJogador($new_jogador);
+            echo json_encode(["message" => $message], JSON_UNESCAPED_UNICODE);
+        } catch (PDOException $err)
+        {
+            echo json_encode(['error' => $err->getMessage()], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
     public function getJogadorById($id)
     {
         try
