@@ -90,12 +90,6 @@ try {
                             href="#account-change-password">Alterar Senha</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-info">Aparencia</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-social-links">Redes sociais</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-connections">Conexões</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-notifications">Notificações</a>
                             <hr>
 
                     </div>
