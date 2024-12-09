@@ -2,7 +2,7 @@
 namespace Connection;
 
 
-
+// require '../env.php';
 // informações para conexão no bd sebrae@123
 $server = "localhost:3306";
 $user = "root";
